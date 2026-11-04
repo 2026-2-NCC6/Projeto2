@@ -1,0 +1,126 @@
+erDiagram
+    USUARIO ||--o{ SESSOES : "realiza"
+    USUARIO ||--o{ ESTABELECIMENTOS_FAVORITOS : "favorita"
+    ESTABELECIMENTO ||--o{ ESTABELECIMENTOS_FAVORITOS : "e_favoritado"
+    ESTABELECIMENTO ||--o{ SESSOES : "sedia"
+    USUARIO ||--o{ CLIENTES : "gerencia_como_personal"
+    USUARIO |o--o{ CLIENTES : "e_aluno_de"
+    CLIENTES |o--o{ SESSOES : "acompanha"
+    SESSOES ||--|{ CIRCUITOS : "contem"
+
+    USUARIO ||--o{ SEGUIDORES : "segue (id_seguidor)"
+    USUARIO ||--o{ SEGUIDORES : "e_seguido (id_seguido)"
+    USUARIO ||--o{ POSTAGENS : "publica"
+    SESSOES |o--o{ POSTAGENS : "compartilhada_em"
+    POSTAGENS ||--o{ CURTIDAS : "recebe"
+    POSTAGENS ||--o{ COMENTARIOS : "recebe"
+    USUARIO ||--o{ CURTIDAS : "curte"
+    USUARIO ||--o{ COMENTARIOS : "comenta"
+
+    USUARIO {
+        uuid id PK
+        varchar nome
+        varchar username UK
+        varchar email UK
+        varchar senha_hash
+        varchar tipo_perfil "atleta | personal | iniciante"
+        varchar foto_perfil_url
+        varchar bio
+        boolean privado
+        int xp_total
+        int nivel
+        timestamp criado_em
+    }
+
+    SEGUIDORES {
+        uuid id PK
+        uuid id_seguidor FK "USUARIO que segue"
+        uuid id_seguido FK "USUARIO que e seguido"
+        varchar status "aceito | pendente"
+        timestamp criado_em
+    }
+
+    POSTAGENS {
+        uuid id PK
+        uuid id_usuario FK "Autor da postagem"
+        uuid id_sessao FK "Opcional (treino compartilhado)"
+        text legenda
+        varchar midia_url
+        varchar visibilidade "publico | seguidores | privado"
+        timestamp criado_em
+    }
+
+    CURTIDAS {
+        uuid id PK
+        uuid id_postagem FK
+        uuid id_usuario FK
+        timestamp criado_em
+    }
+
+    COMENTARIOS {
+        uuid id PK
+        uuid id_postagem FK
+        uuid id_usuario FK
+        text texto
+        timestamp criado_em
+    }
+
+    CLIENTES {
+        uuid id PK
+        uuid id_personal FK "USUARIO que e personal"
+        uuid id_aluno FK "USUARIO que e cliente/aluno"
+        varchar status "ativo | inativo"
+        text observacoes
+        timestamp data_vinculo
+    }
+
+    ESTABELECIMENTO {
+        uuid id PK
+        varchar nome
+        varchar cnpj UK
+        varchar endereco
+        varchar cidade
+        varchar estado
+        varchar telefone
+        boolean parceiro_ativo
+    }
+
+    ESTABELECIMENTOS_FAVORITOS {
+        uuid id PK
+        uuid id_usuario FK
+        uuid id_estabelecimento FK
+        timestamp favoritado_em
+    }
+
+    SESSOES {
+        uuid id PK
+        uuid id_usuario FK
+        uuid id_estabelecimento FK
+        uuid id_cliente FK "Opcional (quando em treino de personal)"
+        varchar modalidade "tenis | musculacao"
+        timestamp data_inicio
+        timestamp data_fim
+        int pontuacao_total
+    }
+
+    CIRCUITOS {
+        uuid id PK
+        uuid id_sessao FK
+        varchar id_movimentos_nosql "Ref ao documento NoSQL (movimentos e precisao)"
+        int numero_rodada
+        timestamp hora_inicio
+        timestamp hora_fim
+        int pontuacao
+    }
+
+    MODELOS_IA {
+        uuid id PK
+        varchar versao
+        varchar modalidade "tenis | musculacao"
+        varchar formato "tflite | onnx | tfjs"
+        float acuracia
+        varchar caminho_arquivo
+        text changelog
+        boolean ativo "Versao distribuida via OTA para o App"
+        timestamp criado_em
+    }
