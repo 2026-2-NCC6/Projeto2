@@ -9,15 +9,14 @@ import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { styles } from '@/components/app-tabs.styles';
 import { AuthScreen } from '@/components/auth-screen';
-import { FluxColors, MaxContentWidth, Radius } from '@/constants/theme';
+import { FluxColors } from '@/constants/theme';
 import { useUsuarioLogado } from '@/hooks';
 
 const TAB_ITEMS = [
-  { name: 'feed', href: '/' as const, label: 'Feed', icon: '⚡' },
-  { name: 'treinar', href: '/treinar' as const, label: 'Treinar', icon: '🎾' },
-  { name: 'arenas', href: '/arenas' as const, label: 'Arenas', icon: '🏟️' },
-  { name: 'personal', href: '/personal' as const, label: 'Personal', icon: '📊' },
+  { name: 'home', href: '/' as const, label: 'Home', icon: '⚡' },
+  { name: 'treinar', href: '/treinar' as const, label: 'Treino', icon: '🎾' },
   { name: 'perfil', href: '/perfil' as const, label: 'Perfil', icon: '👤' },
 ];
 
@@ -44,16 +43,20 @@ export default function AppTabs() {
         <TabList asChild>
           <View
             style={StyleSheet.flatten([
-              styles.tabBarWrapper,
-              { paddingBottom: Math.max(insets.bottom, 12) },
+              styles.glassTabBar,
+              { bottom: Math.max(insets.bottom, 12) },
             ])}>
-            <View style={styles.glassTabBar}>
-              {TAB_ITEMS.map((tab) => (
-                <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-                  <GlassTabButton label={tab.label} icon={tab.icon} />
-                </TabTrigger>
-              ))}
-            </View>
+            {TAB_ITEMS.map((tab) => (
+              <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
+                <GlassTabButton label={tab.label} icon={tab.icon} />
+              </TabTrigger>
+            ))}
+            <TabTrigger name="sessao" href="/sessao" style={{ display: 'none' }} />
+            <TabTrigger
+              name="resumo-sessao"
+              href={'/resumo-sessao' as never}
+              style={{ display: 'none' }}
+            />
           </View>
         </TabList>
       </Tabs>
@@ -66,13 +69,15 @@ function GlassTabButton({
   label,
   icon,
   style,
+  ref,
   ...props
 }: TabTriggerSlotProps & { label: string; icon: string }) {
   return (
     <Pressable
       {...props}
+      ref={ref as React.ComponentProps<typeof Pressable>['ref']}
       style={StyleSheet.flatten([
-        style,
+        typeof style !== 'function' ? style : undefined,
         styles.tabTrigger,
         isFocused && styles.tabTriggerActive,
       ])}>
@@ -87,65 +92,3 @@ function GlassTabButton({
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: FluxColors.background,
-  },
-  loadingScreen: {
-    flex: 1,
-    backgroundColor: FluxColors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tabBarWrapper: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 14,
-    alignItems: 'center',
-  },
-  glassTabBar: {
-    flexDirection: 'row',
-    backgroundColor: 'rgba(18, 20, 32, 0.92)',
-    borderRadius: Radius.xl,
-    borderWidth: 1,
-    borderColor: FluxColors.glassBorderActive,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-    width: '100%',
-    maxWidth: MaxContentWidth,
-    justifyContent: 'space-between',
-    shadowColor: FluxColors.primary,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 18,
-    elevation: 10,
-  },
-  tabTrigger: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 8,
-    borderRadius: Radius.lg,
-    gap: 2,
-  },
-  tabTriggerActive: {
-    backgroundColor: FluxColors.primarySoft,
-    borderWidth: 1,
-    borderColor: FluxColors.primary,
-  },
-  tabIcon: {
-    fontSize: 16,
-  },
-  tabLabel: {
-    color: FluxColors.textSecondary,
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  tabLabelActive: {
-    color: FluxColors.text,
-  },
-});

@@ -1,0 +1,16 @@
+{
+  "name": "flux-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gerenciador raiz do Projeto FLUX (Backend FastAPI + Frontend Expo)",
+  "scripts": {
+    "dev": "powershell -Command \"Start-Process powershell -WorkingDirectory './Backend' -ArgumentList '-NoExit', '-Command', 'uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000'; Set-Location './Frontend'; npx expo start\"",
+    "dev:web": "powershell -Command \"Start-Process powershell -WorkingDirectory './Backend' -ArgumentList '-NoExit', '-Command', 'uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000'; Set-Location './Frontend'; npx expo start --web\"",
+    "dev:clean": "powershell -Command \"Start-Process powershell -WorkingDirectory './Backend' -ArgumentList '-NoExit', '-Command', 'uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000'; Set-Location './Frontend'; npx expo start -c\"",
+    "backend": "cd Backend && uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "frontend": "cd Frontend && npx expo start",
+    "web": "cd Frontend && npx expo start --web",
+    "frontend:clean": "cd Frontend && npx expo start -c",
+    "seed": "cd Backend && uv run python user_seed.py"
+  }
+}
