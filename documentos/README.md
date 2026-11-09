@@ -97,14 +97,14 @@
 
 ### Sistemas Embarcados e Robótica
 
-| **Aluno(s) Responsável(veis)** | [Duda Lucena Miguel] |
+| Aluno(s) Responsável(veis) | [Duda Lucena Miguel] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [Gemini] |
-| **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
-| **Disciplina / Trabalho** | Entrega 2 - Sistemas Embarcados e Robótica |
-| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
-| ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [Documento integral.] |
+| Ferramenta utilizada | [Gemini] |
+| Versão/modelo | [Gemini 3.8 Flash, modelo da Google.] |
+| Disciplina / Trabalho | Entrega 2 - Sistemas Embarcados e Robótica |
+| Finalidade de uso | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
+| *Prompts* principais utilizados | 1.[Gemini, preciso de ajuda para fazer a Entrega 2 do meu Projeto Interdisciplinar da Matéria de Sistemas Embarcados e Robótica. Segue PRD do projeto para entender o que estamos desenvendo. O professor quer que façamos um relatório técnico do que foi feito no projeto.<br><br>o que eu preciso descrever: <br><br>- Como funciona<br><br>O funcionamento do dispositivo dividi-se em dois momentos de uso<br><br>Primeiro: na construção do modelo de IA, onde os dados são colecados via Serial Monitor, então o Arduino é conectado ao computador e os valores enviados via serial dos movimentos são lidos por um script em python que captura, separa e compila os dados dos 6 eixos de movimento, mais uma coluna de frame para captura do tempo em um arquivos .csv<br><br>Segundo, no uso projetado para o ecossistema, onde os dados são enviados via bluetooth para o apk do Smarthphone ou localmento no navegador do computador, conectando via bluetooth da maquina operante, transmiitndo os dados em formato hexadecimal, que converte e faz o tratamento dos dados para identificação do movimento<br><br>- Montagem do prototipo<br><br>O prótotipo foi feito para realizar a prova de conceito, então ele é uma palca arduino R4 wifi, conectada a um sensor MPU6050, com um modulo de bateria, com duas baterias LiPo de 3,7 associadas em série<br><br>Não possui carcaça, pois essa é a primeira versão para provar que é possivel fazer a transmissão e capitação dos dados no ecossistema proposto<br><br>- Tecnologias e Ferramentas (tabela)<br><br>Placa Arduino R4 Wifi: Controlador com comunicação Bluetooth e armazenamento do sistema embarcado)<br><br>MPU-6050: sensor que mede os pares de aceleração linear e angular dos eixos XYZ<br><br>modulo de carregamento: carrega a bateria<br><br>2x bateria LiPo 3,7V: associadas para dispor da energia necessaria para o sensor funcionar sem necessidade de conexão direta na energia<br><br>Frontend: React Native (Typescript)<br><br>Backend: FastAPI (Python) + SQLite + TinyDB<br><br>Edge: Arduino IDE (C++)]<br><br>2.[Esse é o documento com o conteúdo, faça em formato LaTeX, aplicando as regras ABNT. Junto segue a capa dos outros documentos para aplicar nessa entrega. No tópico 5 Eu coloquei um Link de um video no youtube que demonstra o funcionamento do dispostivo, coloque em um hiperlink clicavel para facilitar o professor acessar. No tópico 6, eu coloquei o código fonte do sistema embarcado, coloque marcadores de código para formata-lo] |
+| Trechos ou entregas afetadas | [Documento integral.] |
 
 ### Teoria da Computação e Linguagens Formais
 
