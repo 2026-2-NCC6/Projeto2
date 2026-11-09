@@ -40,7 +40,7 @@
 5 - Agora precisamos definir quem vai ficar responsável por cada parte do gerenciamento de riscos. Vou te passar os integrantes do grupo e quero que você distribua as responsabilidades de acordo com as áreas do projeto.
 6 - vamos montar a parte da metodologia agora Com base no que já fizemos explique como identificamos os riscos, como avaliamos eles e como podemos fazer o monitoramento. Deixe de uma forma boa para colocar no relatório. 
 7 - Chat dá uma olhada na nossa tabela de riscos e vê se está tudo certo, principalmente a classificação de cada risco e as medidas que colocamos para evitar esses problemas. Se tiver alguma coisa errada ou faltando, me avisa. 
-8 - Pronto agora vou te mandar o documento completo. Preciso que você revise tudo veja se está seguindo o que o professor pediu, corrija os erros de português e melhore algumas partes do texto, mas sem mudar o que a gente escreveu.] |
+8 - Pronto agora vou te mandar o documento completo. Preciso que você revise tudo veja se está seguindo o que o professor pediu, corrija os erros de português e melhore algumas partes do texto, mas sem mudar o que a gente escreveu] |
 
 **Trechos ou entregas afetadas:**
 
