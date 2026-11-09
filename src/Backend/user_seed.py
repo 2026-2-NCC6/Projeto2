@@ -29,7 +29,7 @@ USUARIOS_INICIAIS = [
         "username": "marinacosta",
         "email": "iniciante@flux.com",
         "senha_plana": "123456",
-        "tipo_perfil": "iniciante",
+        "tipo_perfil": "atleta",
         "bio": "Começando no tênis com o bracelete FLUX!",
         "xp_total": 350,
         "nivel": 1,

@@ -18,20 +18,21 @@ export function SessionSummaryActions({
   return (
     <GlassCard style={styles.footerCard}>
       <Text style={styles.footerHint}>
-        A sessão será salva no seu histórico de desempenho. Escolha se deseja
-        também publicar este template no Feed da comunidade:
+        Toda sessão é registrada com seu card de desempenho. Escolha se deseja
+        publicá-la como Pública no Feed da Comunidade ou deixá-la Privada
+        (visível somente para você no seu Perfil):
       </Text>
 
       <View style={styles.buttonsCol}>
         <PrimaryButton
-          label="🚀 Publicar Sessão no Feed"
+          label="🌐 Publicar Sessão (Pública no Feed)"
           variant="primary"
           loading={processando}
           onPress={onPublicarSessao}
         />
 
         <PrimaryButton
-          label="✓ Apenas Concluir Sessão"
+          label="🔒 Apenas Concluir (Privada no Perfil)"
           variant="ghost"
           loading={processando}
           onPress={onApenasConcluirSessao}

@@ -18,7 +18,6 @@ import type { TipoPerfil } from '@/types/api';
 const PERFIS: { id: TipoPerfil; label: string; desc: string }[] = [
   { id: 'atleta', label: 'Atleta', desc: 'Performance & Ranking' },
   { id: 'personal', label: 'Personal', desc: 'Gestão de Alunos' },
-  { id: 'iniciante', label: 'Iniciante', desc: 'Jornada Gamificada' },
 ];
 
 export function AuthScreen() {

@@ -71,6 +71,21 @@ class MovimentoNoSQLRepository:
         """Busca diretamente pelo id_circuito em O(1)."""
         return self.buscar_por_doc_id(self.gerar_doc_id(id_circuito))
 
+    def remover_por_doc_id(self, id_movimentos_nosql: Optional[str]) -> bool:
+        """Remove o arquivo de documento NoSQL do circuito caso exista."""
+        if not id_movimentos_nosql:
+            return False
+
+        caminho = self.storage_dir / f"{id_movimentos_nosql}.json"
+        if caminho.exists():
+            caminho.unlink(missing_ok=True)
+            return True
+        return False
+
+    def remover_por_circuito(self, id_circuito: str) -> bool:
+        """Remove o documento NoSQL diretamente pelo id_circuito."""
+        return self.remover_por_doc_id(self.gerar_doc_id(id_circuito))
+
     def listar_todos(self) -> list[dict[str, Any]]:
         """Percorre todos os documentos particionados para exportar o dataset de treino da IA."""
         documentos: list[dict[str, Any]] = []

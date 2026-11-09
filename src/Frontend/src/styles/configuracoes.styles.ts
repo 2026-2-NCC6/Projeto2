@@ -1,0 +1,32 @@
+import { StyleSheet } from 'react-native';
+
+import { BottomTabInset, FluxColors, MaxContentWidth, Spacing } from '@/constants/theme';
+
+export const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: FluxColors.background,
+  },
+  glowOrb: {
+    position: 'absolute',
+    top: -110,
+    left: -50,
+    width: 280,
+    height: 280,
+    borderRadius: 140,
+    backgroundColor: FluxColors.primaryGlow,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: Spacing.three,
+    paddingTop: Spacing.three,
+    paddingBottom: BottomTabInset + 32,
+    gap: Spacing.three,
+    maxWidth: MaxContentWidth,
+    width: '100%',
+    alignSelf: 'center',
+  },
+});
+

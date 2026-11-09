@@ -31,6 +31,26 @@ export interface ResumoSessaoSnapshot {
   circuitos: CircuitoSessaoAtiva[];
 }
 
+export interface CircuitoTemplatePost {
+  id: string;
+  tituloMeta: string;
+  tempoSegundos: number;
+  totalGolpes: number;
+  percentualAcerto: number;
+  pontuacao: number;
+}
+
+export interface TemplatePostagemTreino {
+  tipo: 'flux_strava_v1';
+  dataSessaoFormatada: string;
+  tempoTotalFormatado: string;
+  pontuacaoTotal: number;
+  percentualMedioAcerto: number;
+  totalGolpes: number;
+  fotoBackgroundUri: string | null;
+  circuitos: CircuitoTemplatePost[];
+}
+
 let resumoSessaoPendente: ResumoSessaoSnapshot | null = null;
 
 /**
@@ -466,27 +486,60 @@ export const sessaoService = {
   },
 
   /**
-   * Monta os payloads de circuitos concluídos (ou com golpes registrados) para persistência na API.
+   * Monta os payloads de todos os circuitos da sessão para persistência na API (SQLite + TinyDB NoSQL).
    */
   montarPayloadsCircuitosConcluidos(
     lista: CircuitoSessaoAtiva[],
     versaoModeloIa: string
   ): RegistrarCircuitoRequest[] {
-    const concluidos = lista.filter(
-      (c) => c.status === 'concluido' || c.golpes.length > 0
-    );
-
-    return concluidos.map((circ) => {
+    return lista.map((circ) => {
       const consolidado =
         circ.status === 'concluido' ? circ : this.finalizarCalculoCircuito(circ);
 
+      const agoraIso = new Date().toISOString();
+      const metadadosCircuito = {
+        modo_definicao: consolidado.modo_definicao,
+        meta_golpes: consolidado.meta_golpes ?? null,
+        meta_tempo_segundos: consolidado.meta_tempo_segundos ?? null,
+        meta_tempo_rotulo: consolidado.meta_tempo_rotulo ?? null,
+        meta_frequencia_min: consolidado.meta_frequencia_min ?? null,
+        tempo_total_segundos: consolidado.tempo_total_segundos,
+        total_golpes: consolidado.total_golpes,
+        frequencia_golpes_min: consolidado.frequencia_golpes_min,
+        percentual_acerto: consolidado.percentual_acerto,
+      };
+
+      const movimentosComMetadados: MovimentoItem[] =
+        consolidado.golpes.length > 0
+          ? consolidado.golpes.map((g, idx) =>
+              idx === 0
+                ? {
+                    ...g,
+                    metadados_extras: {
+                      ...(g.metadados_extras ?? {}),
+                      ...metadadosCircuito,
+                    },
+                  }
+                : g
+            )
+          : [
+              {
+                tipo_movimento: 'Ciclo Planejado',
+                precisao: Number(
+                  Math.min(1, Math.max(0, consolidado.percentual_acerto / 100)).toFixed(2)
+                ),
+                timestamp_execucao: agoraIso,
+                metadados_extras: metadadosCircuito,
+              },
+            ];
+
       return {
         numero_rodada: consolidado.numero_rodada,
-        hora_inicio: consolidado.hora_inicio || new Date().toISOString(),
-        hora_fim: consolidado.hora_fim || new Date().toISOString(),
+        hora_inicio: consolidado.hora_inicio || agoraIso,
+        hora_fim: consolidado.hora_fim || agoraIso,
         pontuacao: consolidado.pontuacao,
         versao_modelo_ia: versaoModeloIa,
-        movimentos: consolidado.golpes,
+        movimentos: movimentosComMetadados,
       };
     });
   },
@@ -542,6 +595,82 @@ export const sessaoService = {
 
   limparResumoPendente(): void {
     resumoSessaoPendente = null;
+  },
+
+  /**
+   * Empacota o template quadrado (métricas + circuitos + foto opcional) em JSON para o campo midia_url da Postagem.
+   */
+  serializarTemplateParaPostagem(
+    resumo: ResumoSessaoSnapshot,
+    fotoBackgroundUri: string | null
+  ): string {
+    const payload: TemplatePostagemTreino = {
+      tipo: 'flux_strava_v1',
+      dataSessaoFormatada: resumo.dataSessaoFormatada,
+      tempoTotalFormatado: resumo.tempoTotalFormatado,
+      pontuacaoTotal: resumo.pontuacaoTotal,
+      percentualMedioAcerto: resumo.percentualMedioAcerto,
+      totalGolpes: resumo.totalGolpes,
+      fotoBackgroundUri,
+      circuitos: resumo.circuitos.map((c) => ({
+        id: c.id,
+        tituloMeta:
+          c.modo_definicao === 'numero_golpes'
+            ? `Meta: ${c.meta_golpes ?? 0} golpes`
+            : `Meta: ${
+                c.meta_tempo_rotulo ?? `${c.meta_tempo_segundos ?? 0}s`
+              } • ${c.meta_frequencia_min ?? 0} g/m`,
+        tempoSegundos: c.tempo_total_segundos,
+        totalGolpes: c.total_golpes,
+        percentualAcerto: c.percentual_acerto,
+        pontuacao: c.pontuacao,
+      })),
+    };
+    return JSON.stringify(payload);
+  },
+
+  /**
+   * Reconstrói o TemplatePostagemTreino a partir do campo midia_url e criado_em de um post do Feed.
+   */
+  interpretarTemplateDaPostagem(
+    midiaUrl?: string | null,
+    criadoEmIso?: string
+  ): TemplatePostagemTreino {
+    const dataFallback = criadoEmIso
+      ? new Date(criadoEmIso).toLocaleDateString('pt-BR')
+      : new Date().toLocaleDateString('pt-BR');
+
+    if (midiaUrl && midiaUrl.trim().startsWith('{')) {
+      try {
+        const parsed = JSON.parse(midiaUrl) as Partial<TemplatePostagemTreino>;
+        if (parsed && parsed.tipo === 'flux_strava_v1') {
+          return {
+            tipo: 'flux_strava_v1',
+            dataSessaoFormatada: parsed.dataSessaoFormatada ?? dataFallback,
+            tempoTotalFormatado: parsed.tempoTotalFormatado ?? '00:00:00',
+            pontuacaoTotal: parsed.pontuacaoTotal ?? 0,
+            percentualMedioAcerto: parsed.percentualMedioAcerto ?? 0,
+            totalGolpes: parsed.totalGolpes ?? 0,
+            fotoBackgroundUri: parsed.fotoBackgroundUri ?? null,
+            circuitos: Array.isArray(parsed.circuitos) ? parsed.circuitos : [],
+          };
+        }
+      } catch {
+        // Fallback para imagem simples caso não seja JSON
+      }
+    }
+
+    return {
+      tipo: 'flux_strava_v1',
+      dataSessaoFormatada: dataFallback,
+      tempoTotalFormatado: '00:00:00',
+      pontuacaoTotal: 0,
+      percentualMedioAcerto: 0,
+      totalGolpes: 0,
+      fotoBackgroundUri:
+        midiaUrl && !midiaUrl.trim().startsWith('{') ? midiaUrl : null,
+      circuitos: [],
+    };
   },
 };
 

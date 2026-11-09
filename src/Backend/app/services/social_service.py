@@ -64,6 +64,11 @@ class SocialService:
         )
 
     def criar_postagem(self, id_usuario: str, dados: PostagemCreate) -> Postagem:
+        if not dados.id_sessao:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Toda publicação deve estar vinculada a uma sessão de treino.",
+            )
         nova_postagem = Postagem(
             id_usuario=id_usuario,
             id_sessao=dados.id_sessao,
@@ -75,6 +80,14 @@ class SocialService:
 
     def listar_feed(self, id_usuario: str) -> list[Postagem]:
         return self.social_repo.list_feed_for_usuario(id_usuario)
+
+    def listar_postagens_usuario(
+        self, id_usuario_alvo: str, id_usuario_logado: str
+    ) -> list[Postagem]:
+        incluir_privadas = id_usuario_alvo == id_usuario_logado
+        return self.social_repo.list_by_usuario(
+            id_usuario=id_usuario_alvo, incluir_privadas=incluir_privadas
+        )
 
     def alternar_curtida(self, id_usuario: str, id_postagem: str) -> CurtidaToggleResponse:
         postagem = self.social_repo.get_by_id(id_postagem)

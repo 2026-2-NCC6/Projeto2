@@ -549,7 +549,12 @@ class WearableService {
    */
   private interpretarPacoteGolpeBLE(payloadBruto: string): MovimentoItem | null {
     const limpo = payloadBruto.trim();
-    if (!limpo || limpo === 'FLUX_READY' || limpo.startsWith('PKT:')) {
+    if (
+      !limpo ||
+      limpo === 'FLUX_READY' ||
+      limpo.startsWith('PKT:') ||
+      limpo.startsWith('IMU:')
+    ) {
       return null;
     }
 

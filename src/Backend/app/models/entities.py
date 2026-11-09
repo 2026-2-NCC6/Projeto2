@@ -15,7 +15,7 @@ class Usuario(Base):
     username: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
     email: Mapped[str] = mapped_column(String(150), unique=True, index=True, nullable=False)
     senha_hash: Mapped[str] = mapped_column(String(255), nullable=False)
-    tipo_perfil: Mapped[str] = mapped_column(String(30), default="iniciante")  # atleta | personal | iniciante
+    tipo_perfil: Mapped[str] = mapped_column(String(30), default="atleta")  # atleta | personal
     foto_perfil_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     bio: Mapped[Optional[str]] = mapped_column(String(300), nullable=True)
     privado: Mapped[bool] = mapped_column(Boolean, default=False)
@@ -123,7 +123,9 @@ class Sessao(Base):
     circuitos: Mapped[list["Circuito"]] = relationship(
         back_populates="sessao", cascade="all, delete-orphan"
     )
-    postagens: Mapped[list["Postagem"]] = relationship(back_populates="sessao")
+    postagens: Mapped[list["Postagem"]] = relationship(
+        back_populates="sessao", cascade="all, delete-orphan"
+    )
 
 
 class Circuito(Base):
@@ -150,10 +152,10 @@ class Postagem(Base):
         String(36), ForeignKey("usuario.id", ondelete="CASCADE"), nullable=False
     )
     id_sessao: Mapped[Optional[str]] = mapped_column(
-        String(36), ForeignKey("sessoes.id", ondelete="SET NULL"), nullable=True
+        String(36), ForeignKey("sessoes.id", ondelete="CASCADE"), nullable=True
     )
     legenda: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    midia_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    midia_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     visibilidade: Mapped[str] = mapped_column(String(20), default="publico")  # publico | seguidores | privado
     criado_em: Mapped[datetime] = mapped_column(DateTime, insert_default=func.now())
 

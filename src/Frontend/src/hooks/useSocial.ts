@@ -18,6 +18,14 @@ export function useFeed() {
   });
 }
 
+export function usePostagensUsuario(idUsuario?: string) {
+  return useQuery({
+    queryKey: ['social', 'postagens-usuario', idUsuario],
+    queryFn: () => api.get<Postagem[]>(`/social/postagens/usuario/${idUsuario}`),
+    enabled: Boolean(idUsuario),
+  });
+}
+
 export function useSeguidores(idUsuario?: string) {
   return useQuery({
     queryKey: ['social', 'seguidores', idUsuario],
@@ -45,7 +53,7 @@ export function usePublicarPostagem() {
   return useMutation({
     mutationFn: (dados: PostagemCreate) => api.post<Postagem>('/social/postagens', dados),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['social', 'feed'] });
+      queryClient.invalidateQueries({ queryKey: ['social'] });
     },
   });
 }
@@ -57,7 +65,7 @@ export function useCurtirPostagem() {
     mutationFn: (idPostagem: string) =>
       api.post<CurtidaToggleResponse>(`/social/postagens/${idPostagem}/curtir`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['social', 'feed'] });
+      queryClient.invalidateQueries({ queryKey: ['social'] });
     },
   });
 }
@@ -69,7 +77,7 @@ export function useComentarPostagem() {
     mutationFn: ({ idPostagem, dados }: { idPostagem: string; dados: ComentarioCreate }) =>
       api.post<Comentario>(`/social/postagens/${idPostagem}/comentarios`, dados),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['social', 'feed'] });
+      queryClient.invalidateQueries({ queryKey: ['social'] });
     },
   });
 }

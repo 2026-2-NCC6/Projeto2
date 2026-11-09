@@ -44,6 +44,15 @@ class UsuarioService:
 
     def atualizar_perfil(self, usuario: Usuario, dados: UsuarioUpdate) -> Usuario:
         campos = dados.model_dump(exclude_unset=True)
+        novo_username = campos.get("username")
+        if novo_username and novo_username != usuario.username:
+            existente = self.repo.get_by_username(novo_username)
+            if existente and existente.id != usuario.id:
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail="Username já está em uso.",
+                )
+
         for campo, valor in campos.items():
             setattr(usuario, campo, valor)
 

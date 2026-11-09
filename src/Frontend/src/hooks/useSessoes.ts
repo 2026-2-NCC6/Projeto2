@@ -37,6 +37,36 @@ export function useMovimentosCircuito(idCircuito?: string) {
   });
 }
 
+export function useMapaMovimentosCircuitos(sessoes: Sessao[]) {
+  const idsCircuitos = sessoes
+    .flatMap((s) => s.circuitos ?? [])
+    .filter((c) => Boolean(c.id && c.id_movimentos_nosql))
+    .map((c) => c.id);
+
+  const chaveIds = idsCircuitos.join(',');
+
+  return useQuery({
+    queryKey: ['circuitos', 'mapa-movimentos', chaveIds],
+    queryFn: async () => {
+      const mapa: Record<string, MovimentosCircuitoNoSQL> = {};
+      await Promise.all(
+        idsCircuitos.map(async (idCircuito) => {
+          try {
+            const doc = await api.get<MovimentosCircuitoNoSQL>(
+              `/sessoes/circuitos/${idCircuito}/movimentos`
+            );
+            mapa[idCircuito] = doc;
+          } catch {
+            // Ignora caso algum documento NoSQL específico não seja encontrado
+          }
+        })
+      );
+      return mapa;
+    },
+    enabled: idsCircuitos.length > 0,
+  });
+}
+
 export function useIniciarSessao() {
   const queryClient = useQueryClient();
 
@@ -56,6 +86,20 @@ export function useFinalizarSessao() {
     onSuccess: (sessao) => {
       queryClient.invalidateQueries({ queryKey: ['sessoes'] });
       queryClient.setQueryData(['sessoes', 'detalhe', sessao.id], sessao);
+    },
+  });
+}
+
+export function useExcluirSessao() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (idSessao: string) => api.delete<void>(`/sessoes/${idSessao}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['sessoes'] });
+      queryClient.invalidateQueries({ queryKey: ['circuitos'] });
+      queryClient.invalidateQueries({ queryKey: ['social', 'feed'] });
+      queryClient.invalidateQueries({ queryKey: ['social'] });
     },
   });
 }

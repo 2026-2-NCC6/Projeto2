@@ -155,29 +155,30 @@ export function useResumoSessao() {
           novaSessao.id
         );
 
-        if (publicarNoFeed) {
-          const legendaFinal =
-            legenda.trim() ||
-            `Sessão de Treino • Tennis • ${resumo.dataSessaoFormatada}`;
-          await publicarMutation.mutateAsync({
-            id_sessao: encerrada.id,
-            legenda: legendaFinal,
-            midia_url: fotoBackgroundUri,
-            visibilidade: 'publico',
-          });
-        }
+        const legendaLimpa = legenda.trim();
+        const midiaSerializada = sessaoService.serializarTemplateParaPostagem(
+          resumo,
+          fotoBackgroundUri
+        );
+
+        await publicarMutation.mutateAsync({
+          id_sessao: encerrada.id,
+          legenda: legendaLimpa.length > 0 ? legendaLimpa : null,
+          midia_url: midiaSerializada,
+          visibilidade: publicarNoFeed ? 'publico' : 'privado',
+        });
 
         sessaoService.limparResumoPendente();
 
         setToast({
           mensagem: publicarNoFeed
-            ? 'Sessão publicada no Feed e salva no histórico!'
-            : 'Sessão concluída e salva no histórico!',
+            ? 'Sessão publicada no Feed Público e salva no histórico!'
+            : 'Sessão salva como Privada (visível apenas no seu Perfil)!',
           tipo: 'sucesso',
         });
 
         setTimeout(() => {
-          router.replace(publicarNoFeed ? '/' : '/treinar');
+          router.replace(publicarNoFeed ? '/' : '/perfil');
         }, 900);
       } catch {
         setToast({

@@ -4,7 +4,7 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, status
 
 from app.core.database import SessionDep
-from app.models.entities import Circuito, Sessao
+from app.models.entities import Circuito, Postagem, Sessao
 from app.repositories.movimento_nosql_repository import MovimentoNoSQLRepository
 from app.repositories.sessao_repository import SessaoRepository
 from app.repositories.usuario_repository import UsuarioRepository
@@ -132,6 +132,37 @@ class SessaoService:
 
     def listar_por_usuario(self, id_usuario: str) -> list[Sessao]:
         return self.sessao_repo.list_by_usuario(id_usuario)
+
+    def excluir_sessao(self, id_sessao: str, id_usuario_logado: str) -> None:
+        sessao = self.buscar_por_id(id_sessao)
+        if sessao.id_usuario != id_usuario_logado:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Você não tem permissão para excluir esta sessão.",
+            )
+
+        for circuito in sessao.circuitos:
+            if circuito.id_movimentos_nosql:
+                self.nosql_repo.remover_por_doc_id(circuito.id_movimentos_nosql)
+            else:
+                self.nosql_repo.remover_por_circuito(circuito.id)
+
+        # Remove todas as postagens vinculadas à sessão (e eventuais postagens órfãs sem sessão do usuário)
+        for post in list(sessao.postagens):
+            self.sessao_repo.session.delete(post)
+
+        postagens_orfas = (
+            self.sessao_repo.session.query(Postagem)
+            .filter(
+                Postagem.id_usuario == id_usuario_logado,
+                (Postagem.id_sessao == id_sessao) | (Postagem.id_sessao.is_(None)),
+            )
+            .all()
+        )
+        for post_orfao in postagens_orfas:
+            self.sessao_repo.session.delete(post_orfao)
+
+        self.sessao_repo.delete(sessao)
 
 
 def get_sessao_service(session: SessionDep) -> SessaoService:

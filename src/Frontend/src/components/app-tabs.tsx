@@ -57,6 +57,16 @@ export default function AppTabs() {
               href={'/resumo-sessao' as never}
               style={{ display: 'none' }}
             />
+            <TabTrigger
+              name="configuracoes"
+              href={'/configuracoes' as never}
+              style={{ display: 'none' }}
+            />
+            <TabTrigger
+              name="editar-perfil"
+              href={'/editar-perfil' as never}
+              style={{ display: 'none' }}
+            />
           </View>
         </TabList>
       </Tabs>

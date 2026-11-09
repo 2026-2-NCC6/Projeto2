@@ -50,6 +50,16 @@ def carregar_feed(
     return service.listar_feed(usuario_atual.id)
 
 
+@router.get("/postagens/usuario/{id_usuario}", response_model=list[PostagemResponse])
+def listar_postagens_usuario(
+    id_usuario: str,
+    usuario_atual: CurrentUserDep,
+    service: SocialServiceDep,
+):
+    """Lista as postagens de um usuário (inclui sessões privadas apenas se for o próprio usuário)."""
+    return service.listar_postagens_usuario(id_usuario, usuario_atual.id)
+
+
 @router.post("/postagens/{id_postagem}/curtir", response_model=CurtidaToggleResponse)
 def curtir_postagem(
     id_postagem: str,

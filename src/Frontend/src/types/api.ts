@@ -1,4 +1,4 @@
-export type TipoPerfil = 'atleta' | 'personal' | 'iniciante';
+export type TipoPerfil = 'atleta' | 'personal';
 export type ModalidadeTreino = 'tenis' | 'musculacao';
 export type VisibilidadePost = 'publico' | 'seguidores' | 'privado';
 
@@ -29,6 +29,7 @@ export interface UsuarioCreate {
 
 export interface UsuarioUpdate {
   nome?: string;
+  username?: string;
   tipo_perfil?: TipoPerfil;
   foto_perfil_url?: string | null;
   bio?: string | null;

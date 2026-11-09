@@ -89,3 +89,13 @@ def detalhar_sessao(
     service: SessaoServiceDep,
 ):
     return service.buscar_por_id(id_sessao)
+
+
+@router.delete("/{id_sessao}", status_code=status.HTTP_204_NO_CONTENT)
+def excluir_sessao(
+    id_sessao: str,
+    usuario_atual: CurrentUserDep,
+    service: SessaoServiceDep,
+):
+    """Remove uma sessão, seus circuitos no SQLite e os documentos de telemetria NoSQL associados."""
+    service.excluir_sessao(id_sessao, usuario_atual.id)
