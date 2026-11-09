@@ -1,4 +1,4 @@
-# Entregas do PI
+ Entregas do PI
 ### **DECLARAÇÃO DE USO DE INTELIGÊNCIA ARTIFICIAL**
 
 ## Entrega 1
@@ -52,14 +52,14 @@ Organização dos riscos identificados no projeto, elaboração da metodologia, 
 
 ### Teoria da Computação e Linguagens Formais
 
-| **Aluno(s) Responsável(veis)** | [preencher] |
+| **Aluno(s) Responsável(veis)** | [Gabriel Debastiani Davanço] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [preencher] |
-| **Versão/modelo** | [preencher] |
+| **Ferramenta utilizada** | [ChatGPT] |
+| **Versão/modelo** | [GPT-6, modelo da OpenAI] |
 | **Disciplina / Trabalho** | Entrega 1 - Teoria da Computação e Linguagens Formais |
-| **Finalidade de uso** | [preencher] |
-| ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [preencher] |
+| **Finalidade de uso** | [Sanar dúvidas pontuais da matéria, organizar conteúdos da entrega, correção de gramática, correção de erros e estruturação do relatório final] |
+| ***Prompts* principais utilizados** | [1- Estou desenvolvendo a primeira entrega do trabalho semestral da faculdade, da matéria de Teoria da Computação e Linguagens Formais. O projeto que eu e meu grupo estamos produzindo é Flux Wearable, um bracelete capaz de monitorar e avaliar os movimentos de jogadores de tênis por meio de sensores, abrindo portas para novos tipos de treino. Anexei um arquivo .md com as tecnologias e sensores usados. O segundo anexo, é um pdf, com as informações e requerimentos da entrega 1 da matéria citada por parte da faculdade. A ideia é ter um documento final em pdf seguindo as normas ABNT de formatação. Gostaria de ajuda para organizar minhas ideias e estruturar de forma coerente esses tópicos. 2- Depois de algumas iterações, eu cheguei no documento em anexo, contendo o conteúdo pedido na entrega. Agora gostaria que você o checasse e buscasse por erros de português ou de conceito que eu possa ter cometido. Também envolva o conteúdo em um código LaTeX, sem alterar o conteúdo chave. 3- Aqui está a versão final do documento, de uma olhada e veja se a coerência se mantém por todo o trabalho e se tudo faz sentido entre os tópicos apresentados dentro do que foi pedido na entrega.] |
+| **Trechos ou entregas afetadas** | [A formatação do documento em LaTeX, trechos de todo o documento (gramática)] |
 
 ---
 
@@ -111,13 +111,13 @@ Organização dos riscos identificados no projeto, elaboração da metodologia, 
 
 ### Teoria da Computação e Linguagens Formais
 
-| **Aluno(s) Responsável(veis)** | [preencher] |
+| **Aluno(s) Responsável(veis)** | [Gabriel Debastiani Davanço] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [preencher] |
-| **Versão/modelo** | [preencher] |
+| **Ferramenta utilizada** | [ChatGPT, Gemini] |
+| **Versão/modelo** | [GPT-6, modelo da OpenAI; Gemini 3.8 Flash, modelo da Google] |
 | **Disciplina / Trabalho** | Entrega 2 - Teoria da Computação e Linguagens Formais |
-| **Finalidade de uso** | [preencher] |
-| ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [preencher] |
+| **Finalidade de uso** | [(CGPT) Estruturação do documento no modelo ABNT, na linguagem LaTeX e dúvidas de sintaxe; (CGPT) Correção gramática de textos e trechos; (Gemini) Checagem de incoerências gerais do documento.] |
+| ***Prompts* principais utilizados** | 1- (GPT) [Estou montando uma entrega que compõe meu trabalho semestral da faculdade, da matéria de Teoria da Computação e Linguagens Formais. Anexei dois pdfs, um é a primeira entrega dessa matéria, contendo o contexto do projeto e outras informações relacionadas ao conteúdo das aulas, e o segundo que possui as exigências da professora para esta entrega. Como na primeira entrega, esta será um documento em pdf formatado dentro das normas ABNT. Gostaria de ajuda para organizar as ideias e como elas serão estruturadas dentro do documento final. Também gostaria de saber se é necessário ainda colocar a atualização da máquina de estados, considerando que eu e meu grupo não modificamos essa lógica. 2- (GPT) Estou anexando um arquivo .md com os conteúdos de cada seção pedida na entrega, assim como a introdução e conclusão do documento. Gostaria que avaliasse os trechos, corrigisse gramática e os deixe em uma linguagem mais acadêmica sem mudar o conteúdo. 3- Anexei o documento com os trechos corrigidos e com algumas das mudanças sugeridas. Agora me ajude a colocar isso em LaTeX, aplicando as normas ABNT para finalizar o documento. 4- (Gemini) Analise o documento PDF anexado e busque por inconsistências e possíveis erros, e caso necessário, apresente sugestões para resolver os mesmos.]|
+| **Trechos ou entregas afetadas** | [Estrutura e formatação do documento em LaTeX; introdução; linguagem acadêmica e possíveis correções dos trechos: descrição do modelo computacional, definição de pré e pós-condições, análise de decidibilidade e considerações finais.] |
 
 ***Declaro que o uso acima descrito está em conformidade com o GUIA PARA O USO RESPONSÁVEL DE INTELIGÊNCIA ARTIFICIAL NA FECAP e que o conteúdo final é de minha plena responsabilidade autoral.***
