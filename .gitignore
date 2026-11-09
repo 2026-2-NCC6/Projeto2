@@ -351,4 +351,5 @@ MigrationBackup/
 
 # Custom folders
 .agents/
+.docs/
 _latex/
