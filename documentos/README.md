@@ -18,11 +18,11 @@
 
 | **Aluno(s) Responsável(veis)** | [Duda Lucena Miguel] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [Gemini] |
-| **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
+| **Ferramenta utilizada** | [Gemini, chatGPT] |
+| **Versão/modelo** | [Gemini 3.8 Flash ; GPT image 2.8] |
 | **Disciplina / Trabalho** | Entrega 1 - Projeto Interdisciplinar Internet das Coisas e Robótica |
-| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
-| ***Prompts* principais utilizados** | [preencher] |
+| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento, criação de imagem] |
+| ***Prompts* principais utilizados** | 1. [chat, esse projeto que estamos trabalhando possui entregas interdisciplinares que exigem a confecção de alguns relatórios<br>para a entrega destinada ao próprio projeto, o professor pede o planejamento físico do dispositivo e a integração com o IoT<br>pegue o que já fizemos no @PRD e o no @arq_diagram e me ajude a elaborar esse relatório<br>ele precisará ser dividido em contexto, problema, solução, justificativa técnica da escolha, apresentar os aparelhos que vamos usar (Arduino R4 + MPU-6050), vou construir um croqui da expectativa de como visualizamos o produto final, considerações finais<br>pode criar esse escopo em um arquivo .md que eu ajustarei a escrita e o conteúdo]<br><br>2. [chat, preciso criar a imagem de um croqui do produto do meu projeto de IoT desse semestre da faculdade, ele será um dispositivo Werable tipo bracelete que contará com: Placa Arduino Uno R4, um sensor MPU-6050, uma micro tela OLED, uma bateria LiPo com um modulo de carregamento. A ideia e que esses dispositivos fiquem em uma case de plástico para ser colocada no braço do usuario]<br><br>3. [usando esse arquivo .md em anexo, ajuste a escrita, corrigindo erros de sintaxe e gramatique e adeque o conteúdo para uma escrita mais acadêmica. Devolva em um código LaTeX, usando as normas ABNT, no documento tem os nomes e RA dos integrantes do grupo, e do professor, coloque na capa, também preciso que coloque um campo para anexar uma imagem que será o croqui do projeto]<br><br>4. [não está bom, eu queria que a imagem fosse mais realista. Segue imagens de cada componente para serem usados para criar a imagem]<br><br>5. [está completamente fora de escala:<br>- Arduino R4: 7 X 5<br>- MPU: 2 X 1,5<br>- bateria: 1 x 3<br>- modulo de carregamento: 2 x 3<br>- tela OLED: 3 x 3<br><br>tente usar esses valores e as fotos dos dispositivos para fazer a escala. Coloque eles dispostos em uma case tipo bracelete. Faça recortes de visão de cima, de lado e frente] |
 | **Trechos ou entregas afetadas** | [Documento integral.] |
 
 ### Redes de Computadores e Cibersegurança
@@ -81,7 +81,7 @@
 | **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
 | **Disciplina / Trabalho** | Entrega 2 - Projeto Interdisciplinar Internet das Coisas e Robótica |
 | **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
-| ***Prompts* principais utilizados** | [preencher] |
+| ***Prompts* principais utilizados** | 1. [Gemini, preciso fazer a entrega 2 da displina do meu projeto interdisciplinar, em anexo envio a entrega 1 e o que foi pedido pelo professor<br>me ajude a entender a demanda para desenvolver]<br><br>2. [ajustei o que foi necessário apontando todas as mudanças e a etapa do que foi desenvolvido. Ajuste a escrita para uma linguagem mais formal e academica]<br><br>3. [essa é a versão final do conteúdo do documento, coloque ele em formato ABNT seguindo a código Latex em anexo que é a capa da entrega 1. Lembre-se de colocar as tags para receber as imagens que ele pede sobre a prova do desenvolvimento para quando tirar apenas enviar no overleaf e referenciar no codigo] |
 | **Trechos ou entregas afetadas** | [Documento integral.] |
 
 ### Redes de Computadores e Cibersegurança
