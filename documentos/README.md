@@ -16,14 +16,14 @@
 
 ### Projeto Interdisciplinar Internet das Coisas e Robótica
 
-| **Aluno(s) Responsável(veis)** | [preencher] |
+| **Aluno(s) Responsável(veis)** | [Duda Lucena Miguel] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [preencher] |
-| **Versão/modelo** | [preencher] |
+| **Ferramenta utilizada** | [Gemini] |
+| **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
 | **Disciplina / Trabalho** | Entrega 1 - Projeto Interdisciplinar Internet das Coisas e Robótica |
-| **Finalidade de uso** | [preencher] |
+| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
 | ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [preencher] |
+| **Trechos ou entregas afetadas** | [Documento integral.] |
 
 ### Redes de Computadores e Cibersegurança
 
@@ -41,14 +41,14 @@ Organização dos riscos identificados no projeto, elaboração da metodologia, 
 
 ### Sistemas Embarcados e Robótica
 
-| **Aluno(s) Responsável(veis)** | [preencher] |
+| **Aluno(s) Responsável(veis)** | [Duda Lucena Miguel] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [preencher] |
-| **Versão/modelo** | [preencher] |
+| **Ferramenta utilizada** | [Gemini] |
+| **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
 | **Disciplina / Trabalho** | Entrega 1 - Sistemas Embarcados e Robótica |
-| **Finalidade de uso** | [preencher] |
+| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
 | ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [preencher] |
+| **Trechos ou entregas afetadas** | [Documento integral.] |
 
 ### Teoria da Computação e Linguagens Formais
 
@@ -78,14 +78,14 @@ Organização dos riscos identificados no projeto, elaboração da metodologia, 
 
 ### Projeto Interdisciplinar Internet das Coisas e Robótica
 
-| **Aluno(s) Responsável(veis)** | [preencher] |
+| **Aluno(s) Responsável(veis)** | [Duda Lucena Miguel] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [preencher] |
-| **Versão/modelo** | [preencher] |
+| **Ferramenta utilizada** | [Gemini] |
+| **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
 | **Disciplina / Trabalho** | Entrega 2 - Projeto Interdisciplinar Internet das Coisas e Robótica |
-| **Finalidade de uso** | [preencher] |
+| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
 | ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [preencher] |
+| **Trechos ou entregas afetadas** | [Documento integral.] |
 
 ### Redes de Computadores e Cibersegurança
 
@@ -100,14 +100,14 @@ Organização dos riscos identificados no projeto, elaboração da metodologia, 
 
 ### Sistemas Embarcados e Robótica
 
-| **Aluno(s) Responsável(veis)** | [preencher] |
+| **Aluno(s) Responsável(veis)** | [Duda Lucena Miguel] |
 | :--- | :--- |
-| **Ferramenta utilizada** | [preencher] |
-| **Versão/modelo** | [preencher] |
+| **Ferramenta utilizada** | [Gemini] |
+| **Versão/modelo** | [Gemini 3.8 Flash, modelo da Google.] |
 | **Disciplina / Trabalho** | Entrega 2 - Sistemas Embarcados e Robótica |
-| **Finalidade de uso** | [preencher] |
+| **Finalidade de uso** | [Compreensão da demanda, *brainstorm* do conteúdo, adaptação e correção da escrita, desenvolvimento do código LaTeX para formatação do documento.] |
 | ***Prompts* principais utilizados** | [preencher] |
-| **Trechos ou entregas afetadas** | [preencher] |
+| **Trechos ou entregas afetadas** | [Documento integral.] |
 
 ### Teoria da Computação e Linguagens Formais
 
