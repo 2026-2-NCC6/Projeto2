@@ -23,6 +23,7 @@ interface StrokeSequenceBoxProps {
 
 function StrokeSequenceBox({ golpe, ordem }: StrokeSequenceBoxProps) {
   const precisaoPct = Math.round(golpe.precisao * 100);
+  const versaoIA = golpe.metadados_extras?.versao || 'v4';
 
   return (
     <View style={styles.strokeBox}>
@@ -31,9 +32,14 @@ function StrokeSequenceBox({ golpe, ordem }: StrokeSequenceBoxProps) {
           <Text style={styles.strokeOrderText}>#{ordem}</Text>
         </View>
         <View>
-          <Text style={styles.strokeName}>{golpe.tipo_movimento.toUpperCase()}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={styles.strokeName}>{golpe.tipo_movimento.toUpperCase()}</Text>
+            <View style={styles.strokeAiBadge}>
+              <Text style={styles.strokeAiBadgeText}>{`IA ${versaoIA}`}</Text>
+            </View>
+          </View>
           {golpe.velocidade_pico !== undefined ? (
-            <Text style={styles.strokeMeta}>{golpe.velocidade_pico} km/h</Text>
+            <Text style={styles.strokeMeta}>{`${golpe.velocidade_pico} km/h • ${golpe.aceleracao_max ? `${golpe.aceleracao_max} m/s²` : 'Impacto'}`}</Text>
           ) : null}
         </View>
       </View>
@@ -57,6 +63,7 @@ interface CircuitCardItemProps {
   onEditarCircuito: (circuito: CircuitoSessaoAtiva) => void;
   onExcluirCircuito: (idCircuito: string) => void;
   onMoverOrdem: (idCircuito: string, direcao: 'subir' | 'descer') => void;
+  onSimularGolpeIA?: (tipo?: 'forehand' | 'backhand') => void;
 }
 
 export function CircuitCardItem({
@@ -71,6 +78,7 @@ export function CircuitCardItem({
   onEditarCircuito,
   onExcluirCircuito,
   onMoverOrdem,
+  onSimularGolpeIA,
 }: CircuitCardItemProps) {
   const isWeb = Platform.OS === 'web';
   const isPlanejado = circuito.status === 'planejado';
@@ -183,10 +191,11 @@ export function CircuitCardItem({
       style={modoOrdemAtivo ? styles.draggableBoxWrapper : undefined}>
       <GlassCard
         highlighted={isExecutando || isConcluido || modoOrdemAtivo}
-        style={[
-          styles.circuitCard,
-          arrastandoVertical && styles.circuitCardDragging,
-        ]}>
+        style={
+          arrastandoVertical
+            ? ([styles.circuitCard, styles.circuitCardDragging] as any)
+            : styles.circuitCard
+        }>
         {/* Cabeçalho do Circuito com os 6 pontinhos ao lado quando em modo de arraste */}
         <View style={styles.circuitHeader}>
           <View style={styles.headerLeftRow}>
@@ -235,92 +244,90 @@ export function CircuitCardItem({
           )
         ) : null}
 
-        {/* Estado 2: EXECUTANDO */}
+        {/* Estado 2: EXECUTANDO COM CLASSIFICAÇÃO DE IA ATIVA */}
         {isExecutando && !modoOrdemAtivo ? (
-          dispositivoConectado ? (
-            <>
-              <View style={styles.metricsGrid}>
-                <MetricPill
-                  label="Tempo Rodada"
-                  value={`${circuito.tempo_total_segundos}s${
-                    circuito.meta_tempo_segundos
-                      ? ` / ${circuito.meta_tempo_segundos}s`
-                      : ''
-                  }`}
-                  accent
-                />
-                <MetricPill
-                  label="Golpes do Dispositivo"
-                  value={
-                    circuito.modo_definicao === 'numero_golpes' &&
-                    circuito.meta_golpes
-                      ? `${circuito.golpes.length} / ${circuito.meta_golpes}`
-                      : `${circuito.golpes.length}`
-                  }
-                  accent
-                />
+          <>
+            {/* HUD do Modelo de IA Ativo */}
+            <View style={styles.aiActiveBanner}>
+              <Text style={styles.aiActiveText}>🤖 IA de Tênis: Classificando Movimentos</Text>
+              <View style={styles.aiActiveModelBadge}>
+                <Text style={styles.aiActiveModelBadgeText}>MODELO v4</Text>
               </View>
+            </View>
 
-              <Text style={styles.sequenceHeaderLabel}>
-                GOLPES RECEBIDOS DO DISPOSITIVO EM TEMPO REAL
-              </Text>
-              {circuito.golpes.length === 0 ? (
-                <View style={styles.waitingStrokeBox}>
-                  <Text style={styles.waitingStrokeText}>
-                    📡 Aguardando leitura de golpes do bracelete Bluetooth...
-                  </Text>
-                </View>
-              ) : (
-                <View style={styles.strokesList}>
-                  {circuito.golpes.map((golpe, idx) => (
-                    <StrokeSequenceBox
-                      key={`${circuito.id}-live-${idx}`}
-                      golpe={golpe}
-                      ordem={idx + 1}
-                    />
-                  ))}
-                </View>
-              )}
-
-              <PrimaryButton
-                label="⏹ Finalizar Rodada Agora"
-                variant="ghost"
-                onPress={() => onConcluirCircuitoManualmente(circuito.id)}
+            <View style={styles.metricsGrid}>
+              <MetricPill
+                label="Tempo Rodada"
+                value={`${circuito.tempo_total_segundos}s${
+                  circuito.meta_tempo_segundos
+                    ? ` / ${circuito.meta_tempo_segundos}s`
+                    : ''
+                }`}
+                accent
               />
-            </>
-          ) : (
-            <>
-              <View style={styles.metricsGrid}>
-                <MetricPill
-                  label="Tempo do Ciclo"
-                  value={`${circuito.tempo_total_segundos}s${
-                    circuito.meta_tempo_segundos
-                      ? ` / ${circuito.meta_tempo_segundos}s`
-                      : ''
-                  }`}
-                  accent
-                />
-                <MetricPill
-                  label="Modo de Registro"
-                  value="Formulário Manual"
-                />
-              </View>
+              <MetricPill
+                label="Golpes Computados"
+                value={
+                  circuito.modo_definicao === 'numero_golpes' &&
+                  circuito.meta_golpes
+                    ? `${circuito.golpes.length} / ${circuito.meta_golpes}`
+                    : `${circuito.golpes.length}`
+                }
+                accent
+              />
+            </View>
 
+            {/* Ações de Teste Rápido com o Modelo de IA */}
+            {onSimularGolpeIA ? (
+              <View style={styles.aiSimulateActionsRow}>
+                <Pressable
+                  onPress={() => onSimularGolpeIA('forehand')}
+                  style={styles.aiSimulateBtn}
+                  accessibilityRole="button"
+                  accessibilityLabel="Testar golpe Forehand com modelo de IA">
+                  <Text style={styles.aiSimulateBtnText}>🎾 + Forehand (IA)</Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => onSimularGolpeIA('backhand')}
+                  style={styles.aiSimulateBtn}
+                  accessibilityRole="button"
+                  accessibilityLabel="Testar golpe Backhand com modelo de IA">
+                  <Text style={styles.aiSimulateBtnText}>🎾 + Backhand (IA)</Text>
+                </Pressable>
+              </View>
+            ) : null}
+
+            <Text style={styles.sequenceHeaderLabel}>
+              {dispositivoConectado
+                ? 'GOLPES CLASSIFICADOS PELA IA EM TEMPO REAL'
+                : 'GOLPES IDENTIFICADOS PELO MODELO DE IA'}
+            </Text>
+            {circuito.golpes.length === 0 ? (
               <View style={styles.waitingStrokeBox}>
                 <Text style={styles.waitingStrokeText}>
-                  📝 Sem dispositivo conectado: as rodadas não são computadas
-                  automaticamente. Ao finalizar o ciclo, cadastre os dados no
-                  formulário.
+                  {dispositivoConectado
+                    ? '📡 Sensor BLE ativo: execute um Forehand ou Backhand na quadra para classificar...'
+                    : '⚡ Execute um golpe com o sensor ou toque nos botões de teste acima para classificar com a IA...'}
                 </Text>
               </View>
+            ) : (
+              <View style={styles.strokesList}>
+                {circuito.golpes.map((golpe, idx) => (
+                  <StrokeSequenceBox
+                    key={`${circuito.id}-live-${idx}`}
+                    golpe={golpe}
+                    ordem={idx + 1}
+                  />
+                ))}
+              </View>
+            )}
 
-              <PrimaryButton
-                label="⏹ Finalizar e Cadastrar Rodadas"
-                variant="primary"
-                onPress={() => onAbrirRegistroManualCiclo(circuito)}
-              />
-            </>
-          )
+            <PrimaryButton
+              label="⏹ Finalizar Rodada Agora"
+              variant="ghost"
+              onPress={() => onConcluirCircuitoManualmente(circuito.id)}
+            />
+          </>
         ) : null}
 
         {/* Estado 3: CONCLUÍDO */}

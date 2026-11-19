@@ -1,0 +1,13 @@
+{
+  "modelo_id": "flux_tenis",
+  "esporte_id": "tenis",
+  "atualizado_em": "2026-11-18T16:16:27.148727",
+  "total_amostras": 206,
+  "total_frames": 4221,
+  "duracao_media_ms": 1151.4,
+  "amostras_por_golpe": {
+    "tenis_forehand": 102,
+    "tenis_backhand": 104
+  },
+  "arquivos_individuais": 412
+}

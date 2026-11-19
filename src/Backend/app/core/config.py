@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "FLUX API - Smart Tennis Arena"
     APP_VERSION: str = "1.0.0"
     DATABASE_URL: str = "sqlite:///./flux.db"
+    DATALAB_DATABASE_URL: str = "sqlite:///./datalab_ia.db"
     NOSQL_STORAGE_DIR: str = "./storage/movimentos_nosql"
 
     # Configurações de Segurança e JWT

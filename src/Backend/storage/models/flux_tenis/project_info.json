@@ -1,0 +1,13 @@
+{
+  "modelo_id": "flux_tenis",
+  "nome": "flux_tenis",
+  "esporte_id": "tenis",
+  "descricao": "Classificador Biomecânico",
+  "classes_alvo": [
+    "tenis_forehand",
+    "tenis_backhand",
+    "tenis_saque"
+  ],
+  "criado_em": "2026-11-18T14:37:38.388832",
+  "versao_ativa": "v4"
+}

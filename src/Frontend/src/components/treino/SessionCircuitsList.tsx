@@ -47,6 +47,7 @@ interface SessionCircuitsListProps {
   onAjustarIntervalo: (idCircuito: string, deltaSegundos: number) => void;
   onPularIntervalo: (idCircuito: string) => void;
   onRemoverIntervalo: (idCircuito: string) => void;
+  onSimularGolpeIA?: (tipo?: 'forehand' | 'backhand') => void;
 }
 
 export function SessionCircuitsList({
@@ -63,6 +64,7 @@ export function SessionCircuitsList({
   onAjustarIntervalo,
   onPularIntervalo,
   onRemoverIntervalo,
+  onSimularGolpeIA,
 }: SessionCircuitsListProps) {
   const [modoOrdemAtivo, setModoOrdemAtivo] = useState(false);
 
@@ -130,6 +132,7 @@ export function SessionCircuitsList({
                   onEditarCircuito={onEditarCircuito}
                   onExcluirCircuito={onExcluirCircuito}
                   onMoverOrdem={onMoverOrdemCircuito}
+                  onSimularGolpeIA={onSimularGolpeIA}
                 />
 
                 {mostrarConectorIntervalo ? (

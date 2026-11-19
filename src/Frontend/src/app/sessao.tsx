@@ -49,6 +49,7 @@ export default function SessaoScreen() {
     handleRemoverIntervalo,
     handlePularIntervalo,
     handleIniciarCircuito,
+    handleSimularGolpeIA,
     handleAvisoSequenciaPreDefinida,
     handleConfirmarEncerramento,
     handleConfirmarDescarte,
@@ -121,6 +122,7 @@ export default function SessaoScreen() {
             onAjustarIntervalo={handleAjustarIntervalo}
             onPularIntervalo={handlePularIntervalo}
             onRemoverIntervalo={handleRemoverIntervalo}
+            onSimularGolpeIA={handleSimularGolpeIA}
           />
 
           <SessionBottomActions

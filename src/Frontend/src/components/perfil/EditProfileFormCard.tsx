@@ -25,6 +25,7 @@ interface EditProfileFormCardProps {
 const OPCOES_TIPO_PERFIL: Array<{ valor: TipoPerfil; rotulo: string }> = [
   { valor: 'atleta', rotulo: '🏆 Atleta' },
   { valor: 'personal', rotulo: '📋 Personal' },
+  { valor: 'desenvolvedor', rotulo: '💻 Desenvolvedor' },
 ];
 
 export function EditProfileFormCard({

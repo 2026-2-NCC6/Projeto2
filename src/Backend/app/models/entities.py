@@ -15,7 +15,7 @@ class Usuario(Base):
     username: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
     email: Mapped[str] = mapped_column(String(150), unique=True, index=True, nullable=False)
     senha_hash: Mapped[str] = mapped_column(String(255), nullable=False)
-    tipo_perfil: Mapped[str] = mapped_column(String(30), default="atleta")  # atleta | personal
+    tipo_perfil: Mapped[str] = mapped_column(String(30), default="atleta")  # atleta | personal | desenvolvedor
     foto_perfil_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     bio: Mapped[Optional[str]] = mapped_column(String(300), nullable=True)
     privado: Mapped[bool] = mapped_column(Boolean, default=False)

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { RefreshControl, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -16,6 +17,7 @@ import {
 import { styles } from '@/styles/feed.styles';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const { data: usuario } = useUsuarioLogado();
   const { data: postagensRaw = [], isLoading, refetch } = useFeed();
   const postagens = postagensRaw.filter((p) => p.visibilidade !== 'privado');
@@ -25,6 +27,17 @@ export default function HomeScreen() {
   const [buscaTermo, setBuscaTermo] = useState('');
 
   const { data: usuariosEncontrados = [] } = useBuscarUsuarios(buscaTermo);
+
+  // Perfil desenvolvedor possui fluxo próprio voltado a IA e não consome feed social de atletas
+  useEffect(() => {
+    if (usuario?.tipo_perfil === 'desenvolvedor') {
+      router.replace('/laboratorio-ia');
+    }
+  }, [usuario?.tipo_perfil, router]);
+
+  if (usuario?.tipo_perfil === 'desenvolvedor') {
+    return null;
+  }
 
   return (
     <View style={styles.root}>

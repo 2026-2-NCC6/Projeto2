@@ -36,6 +36,34 @@ export default function AppTabs() {
     return <AuthScreen />;
   }
 
+  const isDev = usuario.tipo_perfil === 'desenvolvedor';
+  const visibleTabs = isDev
+    ? [
+        {
+          name: 'laboratorio-ia',
+          href: '/laboratorio-ia' as const,
+          label: 'Lab IA',
+          icon: '🧪',
+        },
+        {
+          name: 'hardware',
+          href: '/hardware' as const,
+          label: 'Hardware',
+          icon: '📡',
+        },
+        {
+          name: 'perfil',
+          href: '/perfil' as const,
+          label: 'Dev',
+          icon: '👤',
+        },
+      ]
+    : [
+        { name: 'home', href: '/' as const, label: 'Home', icon: '⚡' },
+        { name: 'treinar', href: '/treinar' as const, label: 'Treino', icon: '🎾' },
+        { name: 'perfil', href: '/perfil' as const, label: 'Perfil', icon: '👤' },
+      ];
+
   return (
     <View style={styles.root}>
       <Tabs>
@@ -46,12 +74,36 @@ export default function AppTabs() {
               styles.glassTabBar,
               { bottom: Math.max(insets.bottom, 12) },
             ])}>
-            {TAB_ITEMS.map((tab) => (
+            {visibleTabs.map((tab) => (
               <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
                 <GlassTabButton label={tab.label} icon={tab.icon} />
               </TabTrigger>
             ))}
+            {isDev ? (
+              <TabTrigger name="home" href="/" style={{ display: 'none' }} />
+            ) : (
+              <TabTrigger
+                name="laboratorio-ia"
+                href={'/laboratorio-ia' as never}
+                style={{ display: 'none' }}
+              />
+            )}
             <TabTrigger name="sessao" href="/sessao" style={{ display: 'none' }} />
+            <TabTrigger
+              name="gravador-ia"
+              href={'/gravador-ia' as never}
+              style={{ display: 'none' }}
+            />
+            <TabTrigger
+              name="testador-ia"
+              href={'/testador-ia' as never}
+              style={{ display: 'none' }}
+            />
+            <TabTrigger
+              name="avaliacao-ia"
+              href={'/avaliacao-ia' as never}
+              style={{ display: 'none' }}
+            />
             <TabTrigger
               name="resumo-sessao"
               href={'/resumo-sessao' as never}

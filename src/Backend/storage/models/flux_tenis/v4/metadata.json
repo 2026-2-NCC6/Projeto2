@@ -1,0 +1,30 @@
+{
+  "modelo_id": "flux_tenis",
+  "versao": "v4",
+  "esporte_id": "tenis",
+  "classes": [
+    "tenis_backhand",
+    "tenis_forehand"
+  ],
+  "total_amostras": 206,
+  "total_amostras_treinadas": 206,
+  "acuracia": 99.0,
+  "status": "pronto",
+  "autor": "devlab",
+  "criado_em": "2026-11-18T16:16:45.243707",
+  "formato": "biomechanical_centroid_v1",
+  "parametros": {
+    "taxa_amostragem_hz": 20,
+    "janela_padrao_ms": 1500,
+    "total_features": 19,
+    "eixos": [
+      "ax",
+      "ay",
+      "az",
+      "gx",
+      "gy",
+      "gz",
+      "resultante_accel"
+    ]
+  }
+}

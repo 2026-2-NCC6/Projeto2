@@ -1,0 +1,184 @@
+{
+  "metadata": {
+    "modelo_id": "flux_tenis",
+    "versao": "v4",
+    "esporte_id": "tenis",
+    "classes": [
+      "tenis_backhand",
+      "tenis_forehand"
+    ],
+    "total_amostras": 206,
+    "total_amostras_treinadas": 206,
+    "acuracia": 99.0,
+    "status": "pronto",
+    "autor": "devlab",
+    "criado_em": "2026-11-18T16:16:45.243707",
+    "formato": "biomechanical_centroid_v1",
+    "parametros": {
+      "taxa_amostragem_hz": 20,
+      "janela_padrao_ms": 1500,
+      "total_features": 19,
+      "eixos": [
+        "ax",
+        "ay",
+        "az",
+        "gx",
+        "gy",
+        "gz",
+        "resultante_accel"
+      ]
+    }
+  },
+  "feature_names": [
+    "peak_accel",
+    "mean_accel",
+    "std_accel",
+    "rms_accel",
+    "ratio_ataque",
+    "mean_ax",
+    "std_ax",
+    "mean_ay",
+    "std_ay",
+    "mean_az",
+    "std_az",
+    "peak_gyro",
+    "mean_gx",
+    "std_gx",
+    "mean_gy",
+    "std_gy",
+    "mean_gz",
+    "std_gz",
+    "mean_gyro_abs"
+  ],
+  "scaler": {
+    "peak_accel": {
+      "mean": 56.1387,
+      "std": 16.4508
+    },
+    "mean_accel": {
+      "mean": 21.9593,
+      "std": 5.3166
+    },
+    "std_accel": {
+      "mean": 16.7618,
+      "std": 7.1581
+    },
+    "rms_accel": {
+      "mean": 27.4593,
+      "std": 8.1854
+    },
+    "ratio_ataque": {
+      "mean": 0.5417,
+      "std": 0.0964
+    },
+    "mean_ax": {
+      "mean": 7.0102,
+      "std": 4.0963
+    },
+    "std_ax": {
+      "mean": 12.812,
+      "std": 3.4376
+    },
+    "mean_ay": {
+      "mean": -15.9235,
+      "std": 4.3762
+    },
+    "std_ay": {
+      "mean": 13.2045,
+      "std": 6.569
+    },
+    "mean_az": {
+      "mean": 0.8696,
+      "std": 2.5942
+    },
+    "std_az": {
+      "mean": 10.3173,
+      "std": 2.6083
+    },
+    "peak_gyro": {
+      "mean": 8.6988,
+      "std": 0.2888
+    },
+    "mean_gx": {
+      "mean": 0.7694,
+      "std": 0.6103
+    },
+    "std_gx": {
+      "mean": 2.7045,
+      "std": 0.7392
+    },
+    "mean_gy": {
+      "mean": -0.8285,
+      "std": 1.5973
+    },
+    "std_gy": {
+      "mean": 4.0262,
+      "std": 0.6432
+    },
+    "mean_gz": {
+      "mean": -1.8314,
+      "std": 1.9964
+    },
+    "std_gz": {
+      "mean": 2.7984,
+      "std": 1.2282
+    },
+    "mean_gyro_abs": {
+      "mean": 8.0742,
+      "std": 2.2248
+    }
+  },
+  "centroides": {
+    "tenis_backhand": {
+      "features_centroide": {
+        "peak_accel": 0.7645,
+        "mean_accel": 0.8012,
+        "std_accel": 0.8699,
+        "rms_accel": 0.8477,
+        "ratio_ataque": -0.1166,
+        "mean_ax": 0.6853,
+        "std_ax": 0.5786,
+        "mean_ay": -0.7806,
+        "std_ay": 0.8981,
+        "mean_az": 0.6825,
+        "std_az": 0.7028,
+        "peak_gyro": -0.106,
+        "mean_gx": 0.3035,
+        "std_gx": 0.5525,
+        "mean_gy": -0.8368,
+        "std_gy": -0.3799,
+        "mean_gz": -0.9452,
+        "std_gz": 0.9006,
+        "mean_gyro_abs": 0.8423
+      },
+      "total_amostras": 104,
+      "pico_medio": 68.71
+    },
+    "tenis_forehand": {
+      "features_centroide": {
+        "peak_accel": -0.7795,
+        "mean_accel": -0.8169,
+        "std_accel": -0.8869,
+        "rms_accel": -0.8643,
+        "ratio_ataque": 0.1196,
+        "mean_ax": -0.6987,
+        "std_ax": -0.59,
+        "mean_ay": 0.7959,
+        "std_ay": -0.9157,
+        "mean_az": -0.6959,
+        "std_az": -0.7166,
+        "peak_gyro": 0.108,
+        "mean_gx": -0.3096,
+        "std_gx": -0.5633,
+        "mean_gy": 0.8532,
+        "std_gy": 0.3875,
+        "mean_gz": 0.9637,
+        "std_gz": -0.9184,
+        "mean_gyro_abs": -0.8588
+      },
+      "total_amostras": 102,
+      "pico_medio": 43.32
+    }
+  },
+  "decision_threshold_impact": 25.0
+}

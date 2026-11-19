@@ -282,12 +282,14 @@ export function useSessaoTreino() {
         sessaoService.iniciarExecucaoCircuito(prev, idCircuito)
       );
 
-      if (!estaConectado) {
-        return;
-      }
-
       const stopFn = await wearableService.iniciarEscutaGolpesDispositivo(
         (novoGolpe: MovimentoItem) => {
+          soundService.tocarGolpeDetectado(novoGolpe.tipo_movimento);
+          setToast({
+            mensagem: `🎾 ${novoGolpe.tipo_movimento.toUpperCase()} identificado pela IA! (${Math.round(novoGolpe.precisao * 100)}% precisão • ${novoGolpe.velocidade_pico ?? 0} km/h)`,
+            tipo: 'sucesso',
+          });
+
           setCircuitos((prev) => {
             const { circuitosAtualizados, atingiuMetaGolpes } =
               sessaoService.registrarGolpeNoCircuito(
@@ -307,7 +309,21 @@ export function useSessaoTreino() {
 
       pararEscutaBLERef.current = stopFn;
     },
-    [concluirCircuito, encerrarEscutaBLE, estaConectado]
+    [concluirCircuito, encerrarEscutaBLE]
+  );
+
+  const handleSimularGolpeIA = useCallback(
+    async (tipo?: 'forehand' | 'backhand') => {
+      if (!idCircuitoExecutando) {
+        setToast({
+          mensagem: 'Inicie um circuito primeiro para classificar movimentos com o modelo de IA!',
+          tipo: 'erro',
+        });
+        return;
+      }
+      await wearableService.simularGolpeIA(tipo);
+    },
+    [idCircuitoExecutando]
   );
 
   const abrirModalRegistroManualCiclo = useCallback(
@@ -448,6 +464,7 @@ export function useSessaoTreino() {
     handleRemoverIntervalo,
     handlePularIntervalo,
     handleIniciarCircuito,
+    handleSimularGolpeIA,
     handleAvisoSequenciaPreDefinida,
     handleConfirmarEncerramento,
     handleConfirmarDescarte,

@@ -1,9 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PermissionsAndroid, Platform } from 'react-native';
 
+import { iaClassifierService } from '@/services/ia/iaClassifierService';
 import type { MovimentoItem } from '@/types/api';
 
 export type WearablePlatformStrategy = 'web-bluetooth' | 'mobile-ble';
+
+export interface TelemetriaIMUItem {
+  frameId: number;
+  timestampMs: number;
+  deltaMs: number;
+  frequenciaHz: number;
+  accel: {
+    x: number;
+    y: number;
+    z: number;
+    resultante: number;
+  };
+  gyro: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  temperatura: number;
+  bateria: number;
+  timestampLocal: number;
+}
 
 export interface WearableDeviceInfo {
   id: string;
@@ -102,6 +124,20 @@ function decodificarDataViewUTF8(view: DataView): string {
   return resultado.trim();
 }
 
+function decodificarBase64(base64: string): string {
+  try {
+    if (typeof atob !== 'undefined') {
+      return atob(base64);
+    }
+  } catch {}
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Buffer } = require('buffer');
+    return Buffer.from(base64, 'base64').toString('utf-8');
+  } catch {}
+  return '';
+}
+
 function comTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const timer = setTimeout(() => {
@@ -127,9 +163,51 @@ class WearableService {
   private mobileConnectedDevice: any = null;
   private dispositivoAtivo: WearableDeviceInfo | null = null;
   private listeners = new Set<(dev: WearableDeviceInfo | null) => void>();
+  private telemetryListeners = new Set<(dados: TelemetriaIMUItem) => void>();
+  private golpeListeners = new Set<(golpe: MovimentoItem) => void>();
+  private cleanupMonitoramento: (() => void) | null = null;
+
+  private ultimoTimestampMs = 0;
+  private ultimoFrameId = 0;
+  private ultimaTelemetria: TelemetriaIMUItem | null = null;
+  private ultimoTimestampGolpeLocal = 0;
+  private ultimoPayloadProcessado = '';
+
+  constructor() {
+    // Conecta o classificador de IA aos ouvintes de golpes do wearable
+    iaClassifierService.registrarListenerGolpe((golpeDetectado) => {
+      this.golpeListeners.forEach((cb) => {
+        try {
+          cb(golpeDetectado);
+        } catch {
+          // Ignora
+        }
+      });
+    });
+  }
 
   public getDispositivoAtivo(): WearableDeviceInfo | null {
     return this.dispositivoAtivo;
+  }
+
+  public getUltimaTelemetria(): TelemetriaIMUItem | null {
+    return this.ultimaTelemetria;
+  }
+
+  public inscreverTelemetria(
+    listener: (dados: TelemetriaIMUItem) => void
+  ): () => void {
+    this.telemetryListeners.add(listener);
+    if (this.ultimaTelemetria) {
+      try {
+        listener(this.ultimaTelemetria);
+      } catch {
+        // Ignora falha de listener inicial
+      }
+    }
+    return () => {
+      this.telemetryListeners.delete(listener);
+    };
   }
 
   public inscreverMudancaEstado(
@@ -399,6 +477,9 @@ class WearableService {
         modeloPlaca = 'Arduino UNO R4 WiFi';
         versaoSoftware = 'v1.0.0';
       }
+
+      // 3. Ativa o monitoramento contínuo da telemetria IMU e golpes em tempo real
+      await this.ativarMonitoramentoWebBluetooth(server);
     }
 
     return {
@@ -498,8 +579,12 @@ class WearableService {
               await connected.discoverAllServicesAndCharacteristics();
               this.mobileConnectedDevice = connected;
 
+              // Ativa monitoramento contínuo da telemetria IMU e golpes no mobile BLE
+              await this.ativarMonitoramentoMobileBLE(connected);
+
               if (onDisconnected) {
                 connected.onDisconnected(() => {
+                  this.desativarMonitoramento();
                   this.mobileConnectedDevice = null;
                   onDisconnected();
                 });
@@ -523,7 +608,104 @@ class WearableService {
     });
   }
 
+  private async ativarMonitoramentoWebBluetooth(
+    server: WebBluetoothGATTServer
+  ): Promise<void> {
+    try {
+      if (!server.getPrimaryService) return;
+      const service = await server.getPrimaryService(
+        FLUX_BLE_CONFIG.CUSTOM_IMU_SERVICE_UUID
+      );
+      const characteristic = await service.getCharacteristic(
+        FLUX_BLE_CONFIG.CUSTOM_IMU_CHAR_UUID
+      );
+
+      const handleNotification = (event: any) => {
+        const dv: DataView | undefined =
+          event?.target?.value ?? characteristic.value;
+        if (!dv) return;
+        const texto = decodificarDataViewUTF8(dv);
+        if (!texto || texto === this.ultimoPayloadProcessado) return;
+        this.ultimoPayloadProcessado = texto;
+        this.processarMensagemRecebida(texto);
+      };
+
+      if (characteristic.startNotifications && characteristic.addEventListener) {
+        await characteristic.startNotifications();
+        characteristic.addEventListener(
+          'characteristicvaluechanged',
+          handleNotification
+        );
+
+        this.cleanupMonitoramento = () => {
+          try {
+            characteristic.removeEventListener?.(
+              'characteristicvaluechanged',
+              handleNotification
+            );
+            void characteristic.stopNotifications?.();
+          } catch {
+            // Ignora erro se desconectado
+          }
+        };
+      }
+    } catch {
+      // Ignora caso a característica de telemetria falhe na inscrição
+    }
+  }
+
+  private async ativarMonitoramentoMobileBLE(
+    connectedDevice: any
+  ): Promise<void> {
+    try {
+      if (
+        typeof connectedDevice.monitorCharacteristicForService !== 'function'
+      ) {
+        return;
+      }
+
+      const subscription = connectedDevice.monitorCharacteristicForService(
+        FLUX_BLE_CONFIG.CUSTOM_IMU_SERVICE_UUID,
+        FLUX_BLE_CONFIG.CUSTOM_IMU_CHAR_UUID,
+        (error: any, characteristic: any) => {
+          if (error || !characteristic?.value) return;
+          const texto = decodificarBase64(characteristic.value);
+          if (!texto || texto === this.ultimoPayloadProcessado) return;
+          this.ultimoPayloadProcessado = texto;
+          this.processarMensagemRecebida(texto);
+        }
+      );
+
+      this.cleanupMonitoramento = () => {
+        try {
+          subscription?.remove?.();
+        } catch {
+          // Ignora erro ao remover listener
+        }
+      };
+    } catch {
+      // Falha ao ativar monitoramento nativo
+    }
+  }
+
+  private desativarMonitoramento(): void {
+    if (this.cleanupMonitoramento) {
+      try {
+        this.cleanupMonitoramento();
+      } catch {
+        // Ignora
+      }
+      this.cleanupMonitoramento = null;
+    }
+    this.ultimoPayloadProcessado = '';
+    this.ultimoTimestampMs = 0;
+    this.ultimoFrameId = 0;
+    this.ultimaTelemetria = null;
+  }
+
   public async desconectar(): Promise<void> {
+    this.desativarMonitoramento();
+
     if (this.webDevice?.gatt?.connected) {
       this.webDevice.gatt.disconnect();
     }
@@ -542,8 +724,143 @@ class WearableService {
   }
 
   /**
+   * Converte o payload de telemetria bruto "IMU:FRAME,TIMESTAMP_MS,AX,AY,AZ,GX,GY,GZ,TEMP,BAT"
+   * no formato estruturado TelemetriaIMUItem com cálculo de delta t, frequência real e resultante.
+   */
+  public interpretarPacoteIMU(payloadBruto: string): TelemetriaIMUItem | null {
+    const limpo = payloadBruto.trim();
+    if (!limpo.startsWith('IMU:')) {
+      return null;
+    }
+
+    const conteudo = limpo.slice(4);
+    const partes = conteudo.split(',');
+    if (partes.length < 10) {
+      return null;
+    }
+
+    const frameId = parseInt(partes[0], 10);
+    const timestampMs = parseInt(partes[1], 10);
+    const ax = parseFloat(partes[2]);
+    const ay = parseFloat(partes[3]);
+    const az = parseFloat(partes[4]);
+    const gx = parseFloat(partes[5]);
+    const gy = parseFloat(partes[6]);
+    const gz = parseFloat(partes[7]);
+    const temp = parseFloat(partes[8]);
+    const bat = parseInt(partes[9], 10);
+
+    if (
+      isNaN(frameId) ||
+      isNaN(timestampMs) ||
+      isNaN(ax) ||
+      isNaN(ay) ||
+      isNaN(az)
+    ) {
+      return null;
+    }
+
+    let deltaMs = 0;
+    if (this.ultimoTimestampMs > 0 && timestampMs > this.ultimoTimestampMs) {
+      deltaMs = timestampMs - this.ultimoTimestampMs;
+    }
+    this.ultimoTimestampMs = timestampMs;
+    this.ultimoFrameId = frameId;
+
+    const frequenciaHz = deltaMs > 0 ? Number((1000 / deltaMs).toFixed(1)) : 20;
+    const resultante = Number(
+      Math.sqrt(ax * ax + ay * ay + az * az).toFixed(2)
+    );
+
+    const telemetria: TelemetriaIMUItem = {
+      frameId,
+      timestampMs,
+      deltaMs,
+      frequenciaHz,
+      accel: {
+        x: Number(ax.toFixed(2)),
+        y: Number(ay.toFixed(2)),
+        z: Number(az.toFixed(2)),
+        resultante,
+      },
+      gyro: {
+        x: !isNaN(gx) ? Number(gx.toFixed(2)) : 0,
+        y: !isNaN(gy) ? Number(gy.toFixed(2)) : 0,
+        z: !isNaN(gz) ? Number(gz.toFixed(2)) : 0,
+      },
+      temperatura: !isNaN(temp) ? Number(temp.toFixed(1)) : 25,
+      bateria: !isNaN(bat) && bat >= 0 && bat <= 100 ? bat : 96,
+      timestampLocal: Date.now(),
+    };
+
+    return telemetria;
+  }
+
+  /**
+   * Processa pacotes recebidos pelo canal de características BLE em tempo real.
+   */
+  private processarMensagemRecebida(textoBruto: string): void {
+    const texto = textoBruto.trim();
+    if (!texto) return;
+
+    if (texto.startsWith('IMU:')) {
+      const item = this.interpretarPacoteIMU(texto);
+      if (item) {
+        this.ultimaTelemetria = item;
+
+        // Atualiza a bateria no estado geral caso haja variação
+        if (
+          this.dispositivoAtivo &&
+          item.bateria !== this.dispositivoAtivo.bateria
+        ) {
+          this.dispositivoAtivo = {
+            ...this.dispositivoAtivo,
+            bateria: item.bateria,
+          };
+          this.listeners.forEach((cb) => cb(this.dispositivoAtivo));
+        }
+
+        // Notifica observadores da telemetria ao vivo
+        this.telemetryListeners.forEach((cb) => {
+          try {
+            cb(item);
+          } catch {
+            // Ignora
+          }
+        });
+
+        // Alimenta o classificador biomecânico de IA para identificação precisa do movimento
+        if (this.golpeListeners.size > 0) {
+          iaClassifierService.adicionarLeitura(item);
+        }
+      }
+      return;
+    }
+
+    // Se for formato direto de golpe ("Forehand|0.94|102.4")
+    const golpe = this.interpretarPacoteGolpeBLE(texto);
+    if (golpe) {
+      this.golpeListeners.forEach((cb) => {
+        try {
+          cb(golpe);
+        } catch {
+          // Ignora
+        }
+      });
+    }
+  }
+
+  /**
+   * Permite simular ou testar diretamente a inferência de um golpe pelo modelo de IA
+   * dentro de um circuito em execução (útil para testes em bancada e desenvolvimento).
+   */
+  public async simularGolpeIA(tipo?: 'forehand' | 'backhand'): Promise<MovimentoItem | null> {
+    return iaClassifierService.simularGolpeComIA(tipo);
+  }
+
+  /**
    * Converte um payload bruto real recebido via BLE do sistema embarcado em um MovimentoItem.
-   * Aceita exclusivamente pacotes reais de golpe no formato estruturado:
+   * Aceita pacotes reais de golpe no formato estruturado:
    * "TIPO_GOLPE|PRECISAO|VELOCIDADE" (ex.: "Forehand|0.94|102.4").
    * Pacotes de status/keepalive como "FLUX_READY" ou "PKT:..." são ignorados.
    */
@@ -588,67 +905,16 @@ class WearableService {
   }
 
   /**
-   * Inicia a escuta em tempo real dos golpes enviados via Bluetooth pelo dispositivo wearable
-   * durante a execução de um circuito. Sem qualquer simulação: apenas pacotes reais vindos
-   * da característica GATT do hardware são repassados.
+   * Registra um listener para recepção de golpes durante a sessão de treino.
+   * Não interfere na telemetria contínua.
    */
   public async iniciarEscutaGolpesDispositivo(
     onGolpeRecebido: (golpe: MovimentoItem) => void
   ): Promise<() => void> {
-    let ultimoPayloadProcessado = '';
-
-    if (
-      Platform.OS === 'web' &&
-      this.webDevice?.gatt?.connected &&
-      this.webDevice.gatt.getPrimaryService
-    ) {
-      try {
-        const service = await this.webDevice.gatt.getPrimaryService(
-          FLUX_BLE_CONFIG.CUSTOM_IMU_SERVICE_UUID
-        );
-        const characteristic = await service.getCharacteristic(
-          FLUX_BLE_CONFIG.CUSTOM_IMU_CHAR_UUID
-        );
-
-        const handleNotification = (event: any) => {
-          const dv: DataView | undefined =
-            event?.target?.value ?? characteristic.value;
-          if (!dv) return;
-          const texto = decodificarDataViewUTF8(dv);
-          if (!texto || texto === ultimoPayloadProcessado) return;
-          ultimoPayloadProcessado = texto;
-
-          const golpe = this.interpretarPacoteGolpeBLE(texto);
-          if (golpe) {
-            onGolpeRecebido(golpe);
-          }
-        };
-
-        if (characteristic.startNotifications && characteristic.addEventListener) {
-          await characteristic.startNotifications();
-          characteristic.addEventListener(
-            'characteristicvaluechanged',
-            handleNotification
-          );
-
-          return () => {
-            try {
-              characteristic.removeEventListener?.(
-                'characteristicvaluechanged',
-                handleNotification
-              );
-              void characteristic.stopNotifications?.();
-            } catch {
-              // Ignora caso o dispositivo tenha desconectado
-            }
-          };
-        }
-      } catch {
-        // Sem conexão GATT ativa com a característica de telemetria
-      }
-    }
-
-    return () => {};
+    this.golpeListeners.add(onGolpeRecebido);
+    return () => {
+      this.golpeListeners.delete(onGolpeRecebido);
+    };
   }
 }
 

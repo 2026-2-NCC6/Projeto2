@@ -1,0 +1,33 @@
+{
+  "_default": {
+    "1": {
+      "id_nosql": "mov_79706c03-f8f8-4e31-99dd-c8a576e0c375",
+      "id_sessao": "afe3f2c7-01a2-4073-9351-aab58a829e0e",
+      "id_circuito": "79706c03-f8f8-4e31-99dd-c8a576e0c375",
+      "versao_modelo_ia": "manual-v1",
+      "total_movimentos": 1,
+      "precisao_media": 0.0,
+      "registrado_em": "2026-11-19T00:53:25.625918+00:00",
+      "movimentos": [
+        {
+          "tipo_movimento": "Ciclo Planejado",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:53:25.516000Z",
+          "metadados_extras": {
+            "modo_definicao": "tempo_frequencia",
+            "meta_golpes": 10,
+            "meta_tempo_segundos": 30,
+            "meta_tempo_rotulo": "30 seg",
+            "meta_frequencia_min": 20,
+            "tempo_total_segundos": 1,
+            "total_golpes": 0,
+            "frequencia_golpes_min": 0,
+            "percentual_acerto": 0
+          }
+        }
+      ]
+    }
+  }
+}

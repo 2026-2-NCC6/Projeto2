@@ -96,3 +96,22 @@ def get_current_user(
 
 CurrentUserDep = Annotated[Usuario, Depends(get_current_user)]
 
+
+def exigir_perfil(*perfis_permitidos: str):
+    """
+    Fábrica de dependências para RBAC (Role-Based Access Control) nativo.
+    Valida se o usuário autenticado possui o tipo_perfil exigido para o endpoint.
+    """
+    def verificar_permissao(usuario: CurrentUserDep) -> Usuario:
+        if usuario.tipo_perfil not in perfis_permitidos:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Acesso restrito. Esta operação requer perfil: {', '.join(perfis_permitidos)}.",
+            )
+        return usuario
+
+    return verificar_permissao
+
+
+DevUserDep = Annotated[Usuario, Depends(exigir_perfil("desenvolvedor"))]
+

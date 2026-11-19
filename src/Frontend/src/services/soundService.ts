@@ -89,6 +89,26 @@ class SoundService {
       // Ignora em ambientes sem motor de vibração
     }
   }
+
+  /**
+   * Sinal sonoro emitido quando um golpe é classificado pelo modelo de IA em tempo real.
+   */
+  public tocarGolpeDetectado(tipo: string) {
+    const isBackhand = tipo.toLowerCase().includes('backhand');
+    if (isBackhand) {
+      this.emitirNota(880, 0, 0.08, 'triangle');
+      this.emitirNota(659.25, 0.07, 0.12, 'triangle');
+    } else {
+      this.emitirNota(659.25, 0, 0.08, 'triangle');
+      this.emitirNota(880, 0.07, 0.12, 'triangle');
+    }
+
+    try {
+      Vibration.vibrate(50);
+    } catch {
+      // Ignora
+    }
+  }
 }
 
 export const soundService = new SoundService();

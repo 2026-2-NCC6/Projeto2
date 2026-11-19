@@ -4,24 +4,30 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { PostCard } from '@/components/feed/PostCard';
+import { DevWorkspaceCard } from '@/components/perfil/DevWorkspaceCard';
 import { ProfileIdentityHeaderCard } from '@/components/perfil/ProfileIdentityHeaderCard';
 import { ProfileMetricsDashboard } from '@/components/perfil/ProfileMetricsDashboard';
 import { GlassCard } from '@/components/ui/GlassCard';
 import {
   useCurtirPostagem,
+  useEstatisticasDataset,
   usePostagensUsuario,
   useSeguidores,
   useSessoesUsuario,
   useUsuarioLogado,
+  useWearable,
 } from '@/hooks';
 import { styles } from '@/styles/perfil.styles';
 
 export default function PerfilScreen() {
   const router = useRouter();
   const { data: usuario } = useUsuarioLogado();
+  const isDev = usuario?.tipo_perfil === 'desenvolvedor';
   const { data: seguidores } = useSeguidores(usuario?.id);
   const { data: minhasPostagens = [] } = usePostagensUsuario(usuario?.id);
   const { data: minhasSessoes = [] } = useSessoesUsuario(usuario?.id);
+  const { data: estatisticas } = useEstatisticasDataset();
+  const { estaConectado } = useWearable();
 
   const curtirMutation = useCurtirPostagem();
 
@@ -41,65 +47,77 @@ export default function PerfilScreen() {
             onAbrirConfiguracoes={() => router.push('/configuracoes' as never)}
           />
 
-          {/* Seletor das 2 Abas Internas: Meu Feed | Métricas */}
-          <View style={styles.internalTabsRow}>
-            <Pressable
-              onPress={() => setAbaInterna('feed')}
-              style={[
-                styles.internalTabBtn,
-                abaInterna === 'feed' && styles.internalTabBtnActive,
-              ]}>
-              <Text
-                style={[
-                  styles.internalTabText,
-                  abaInterna === 'feed' && styles.internalTabTextActive,
-                ]}>
-                📱 Meu Feed ({minhasPostagens.length})
-              </Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => setAbaInterna('metricas')}
-              style={[
-                styles.internalTabBtn,
-                abaInterna === 'metricas' && styles.internalTabBtnActive,
-              ]}>
-              <Text
-                style={[
-                  styles.internalTabText,
-                  abaInterna === 'metricas' && styles.internalTabTextActive,
-                ]}>
-                📊 Métricas & Desempenho
-              </Text>
-            </Pressable>
-          </View>
-
-          {/* Conteúdo da Aba Interna selecionada */}
-          {abaInterna === 'feed' ? (
-            <View style={styles.feedStack}>
-              {minhasPostagens.length === 0 ? (
-                <GlassCard style={styles.emptyCard}>
-                  <Text style={styles.emptyTitle}>Você ainda não tem publicações</Text>
-                  <Text style={styles.emptySub}>
-                    Compartilhe um treino na aba "Treino" ou publique uma atividade na "Home"!
-                  </Text>
-                </GlassCard>
-              ) : (
-                minhasPostagens.map((post) => (
-                  <PostCard
-                    key={post.id}
-                    post={post}
-                    authorLabel={`${usuario?.nome ?? 'Atleta'} (@${usuario?.username ?? 'flux'})`}
-                    onCurtir={(idPost) => curtirMutation.mutate(idPost)}
-                  />
-                ))
-              )}
-            </View>
-          ) : (
-            <ProfileMetricsDashboard
-              sessoes={minhasSessoes}
-              postagensUsuario={minhasPostagens}
+          {isDev ? (
+            <DevWorkspaceCard
+              totalAmostras={estatisticas?.total_amostras ?? 0}
+              estaConectado={estaConectado}
+              onAbrirLabIA={() => router.push('/laboratorio-ia')}
+              onAbrirHardware={() => router.push('/treinar')}
+              onAbrirConfiguracoes={() => router.push('/configuracoes' as never)}
             />
+          ) : (
+            <>
+              {/* Seletor das 2 Abas Internas: Meu Feed | Métricas */}
+              <View style={styles.internalTabsRow}>
+                <Pressable
+                  onPress={() => setAbaInterna('feed')}
+                  style={[
+                    styles.internalTabBtn,
+                    abaInterna === 'feed' && styles.internalTabBtnActive,
+                  ]}>
+                  <Text
+                    style={[
+                      styles.internalTabText,
+                      abaInterna === 'feed' && styles.internalTabTextActive,
+                    ]}>
+                    📱 Meu Feed ({minhasPostagens.length})
+                  </Text>
+                </Pressable>
+
+                <Pressable
+                  onPress={() => setAbaInterna('metricas')}
+                  style={[
+                    styles.internalTabBtn,
+                    abaInterna === 'metricas' && styles.internalTabBtnActive,
+                  ]}>
+                  <Text
+                    style={[
+                      styles.internalTabText,
+                      abaInterna === 'metricas' && styles.internalTabTextActive,
+                    ]}>
+                    📊 Métricas & Desempenho
+                  </Text>
+                </Pressable>
+              </View>
+
+              {/* Conteúdo da Aba Interna selecionada */}
+              {abaInterna === 'feed' ? (
+                <View style={styles.feedStack}>
+                  {minhasPostagens.length === 0 ? (
+                    <GlassCard style={styles.emptyCard}>
+                      <Text style={styles.emptyTitle}>Você ainda não tem publicações</Text>
+                      <Text style={styles.emptySub}>
+                        Compartilhe um treino na aba "Treino" ou publique uma atividade na "Home"!
+                      </Text>
+                    </GlassCard>
+                  ) : (
+                    minhasPostagens.map((post) => (
+                      <PostCard
+                        key={post.id}
+                        post={post}
+                        authorLabel={`${usuario?.nome ?? 'Atleta'} (@${usuario?.username ?? 'flux'})`}
+                        onCurtir={(idPost) => curtirMutation.mutate(idPost)}
+                      />
+                    ))
+                  )}
+                </View>
+              ) : (
+                <ProfileMetricsDashboard
+                  sessoes={minhasSessoes}
+                  postagensUsuario={minhasPostagens}
+                />
+              )}
+            </>
           )}
         </ScrollView>
       </SafeAreaView>

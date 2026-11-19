@@ -1,4 +1,5 @@
 export * from '@/hooks/useAuth';
+export * from '@/hooks/useDatasetTreino';
 export * from '@/hooks/useEstabelecimentos';
 export * from '@/hooks/useModeloIA';
 export * from '@/hooks/usePersonal';

@@ -1,0 +1,105 @@
+{
+  "_default": {
+    "1": {
+      "id_nosql": "mov_f4a4a028-5cc0-48cd-9ee5-3b6ed4188560",
+      "id_sessao": "afe3f2c7-01a2-4073-9351-aab58a829e0e",
+      "id_circuito": "f4a4a028-5cc0-48cd-9ee5-3b6ed4188560",
+      "versao_modelo_ia": "manual-v1",
+      "total_movimentos": 10,
+      "precisao_media": 0.0,
+      "registrado_em": "2026-11-19T00:53:25.550442+00:00",
+      "movimentos": [
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": {
+            "modo_definicao": "numero_golpes",
+            "meta_golpes": 10,
+            "meta_tempo_segundos": null,
+            "meta_tempo_rotulo": null,
+            "meta_frequencia_min": null,
+            "tempo_total_segundos": 7,
+            "total_golpes": 10,
+            "frequencia_golpes_min": 86,
+            "percentual_acerto": 0
+          }
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        },
+        {
+          "tipo_movimento": "Forehand",
+          "precisao": 0.0,
+          "velocidade_pico": null,
+          "aceleracao_max": null,
+          "timestamp_execucao": "2026-11-19T00:52:59.043000Z",
+          "metadados_extras": null
+        }
+      ]
+    }
+  }
+}

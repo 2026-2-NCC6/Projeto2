@@ -1,0 +1,543 @@
+{
+  "_default": {
+    "1": {
+      "id_nosql": "mov_65bd0764-98e9-4fa3-82e4-358f89b09256",
+      "id_sessao": "890b407e-015e-4f37-99a8-c3cf57dd60ca",
+      "id_circuito": "65bd0764-98e9-4fa3-82e4-358f89b09256",
+      "versao_modelo_ia": "v4",
+      "total_movimentos": 48,
+      "precisao_media": 0.9055,
+      "registrado_em": "2026-11-18T20:21:37.019010+00:00",
+      "movimentos": [
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.92,
+          "velocidade_pico": 114.4,
+          "aceleracao_max": 64.2,
+          "timestamp_execucao": "2026-11-07T16:49:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2620,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.916,
+          "velocidade_pico": 96.4,
+          "aceleracao_max": 53.0,
+          "timestamp_execucao": "2026-11-07T16:49:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1552,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.904,
+          "velocidade_pico": 116.4,
+          "aceleracao_max": 52.6,
+          "timestamp_execucao": "2026-11-07T16:50:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2637,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.951,
+          "velocidade_pico": 125.7,
+          "aceleracao_max": 47.7,
+          "timestamp_execucao": "2026-11-07T16:50:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1738,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.891,
+          "velocidade_pico": 105.2,
+          "aceleracao_max": 55.6,
+          "timestamp_execucao": "2026-11-07T16:50:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1408,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.946,
+          "velocidade_pico": 102.6,
+          "aceleracao_max": 66.0,
+          "timestamp_execucao": "2026-11-07T16:50:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2744,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.894,
+          "velocidade_pico": 115.1,
+          "aceleracao_max": 39.3,
+          "timestamp_execucao": "2026-11-07T16:50:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2140,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.909,
+          "velocidade_pico": 94.7,
+          "aceleracao_max": 49.4,
+          "timestamp_execucao": "2026-11-07T16:51:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1859,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.869,
+          "velocidade_pico": 125.7,
+          "aceleracao_max": 48.9,
+          "timestamp_execucao": "2026-11-07T16:51:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2602,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.859,
+          "velocidade_pico": 111.0,
+          "aceleracao_max": 51.4,
+          "timestamp_execucao": "2026-11-07T16:51:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2030,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.897,
+          "velocidade_pico": 105.7,
+          "aceleracao_max": 69.9,
+          "timestamp_execucao": "2026-11-07T16:51:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2048,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.873,
+          "velocidade_pico": 136.3,
+          "aceleracao_max": 38.1,
+          "timestamp_execucao": "2026-11-07T16:51:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2735,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.914,
+          "velocidade_pico": 131.6,
+          "aceleracao_max": 55.2,
+          "timestamp_execucao": "2026-11-07T16:52:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2710,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.945,
+          "velocidade_pico": 119.8,
+          "aceleracao_max": 39.5,
+          "timestamp_execucao": "2026-11-07T16:52:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1816,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.949,
+          "velocidade_pico": 118.5,
+          "aceleracao_max": 49.3,
+          "timestamp_execucao": "2026-11-07T16:52:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1858,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.89,
+          "velocidade_pico": 121.2,
+          "aceleracao_max": 65.1,
+          "timestamp_execucao": "2026-11-07T16:52:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2120,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.939,
+          "velocidade_pico": 109.8,
+          "aceleracao_max": 53.8,
+          "timestamp_execucao": "2026-11-07T16:52:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1964,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.87,
+          "velocidade_pico": 117.9,
+          "aceleracao_max": 52.6,
+          "timestamp_execucao": "2026-11-07T16:53:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1402,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.9,
+          "velocidade_pico": 94.7,
+          "aceleracao_max": 65.6,
+          "timestamp_execucao": "2026-11-07T16:53:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2643,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.854,
+          "velocidade_pico": 122.7,
+          "aceleracao_max": 54.9,
+          "timestamp_execucao": "2026-11-07T16:53:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2570,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.883,
+          "velocidade_pico": 123.7,
+          "aceleracao_max": 51.2,
+          "timestamp_execucao": "2026-11-07T16:53:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2377,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.936,
+          "velocidade_pico": 105.6,
+          "aceleracao_max": 55.2,
+          "timestamp_execucao": "2026-11-07T16:53:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2131,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.926,
+          "velocidade_pico": 131.1,
+          "aceleracao_max": 43.0,
+          "timestamp_execucao": "2026-11-07T16:54:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1906,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.893,
+          "velocidade_pico": 123.3,
+          "aceleracao_max": 38.6,
+          "timestamp_execucao": "2026-11-07T16:54:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2177,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.944,
+          "velocidade_pico": 130.6,
+          "aceleracao_max": 42.5,
+          "timestamp_execucao": "2026-11-07T16:54:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2378,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.949,
+          "velocidade_pico": 134.2,
+          "aceleracao_max": 41.2,
+          "timestamp_execucao": "2026-11-07T16:54:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2551,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.939,
+          "velocidade_pico": 130.8,
+          "aceleracao_max": 38.0,
+          "timestamp_execucao": "2026-11-07T16:54:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1894,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.94,
+          "velocidade_pico": 124.0,
+          "aceleracao_max": 45.7,
+          "timestamp_execucao": "2026-11-07T16:55:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2261,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.952,
+          "velocidade_pico": 122.6,
+          "aceleracao_max": 53.3,
+          "timestamp_execucao": "2026-11-07T16:55:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2285,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.895,
+          "velocidade_pico": 128.2,
+          "aceleracao_max": 53.6,
+          "timestamp_execucao": "2026-11-07T16:55:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2669,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.868,
+          "velocidade_pico": 99.5,
+          "aceleracao_max": 70.8,
+          "timestamp_execucao": "2026-11-07T16:55:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1973,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.958,
+          "velocidade_pico": 100.4,
+          "aceleracao_max": 54.6,
+          "timestamp_execucao": "2026-11-07T16:55:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1533,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.862,
+          "velocidade_pico": 132.0,
+          "aceleracao_max": 53.1,
+          "timestamp_execucao": "2026-11-07T16:56:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2499,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.867,
+          "velocidade_pico": 113.8,
+          "aceleracao_max": 42.8,
+          "timestamp_execucao": "2026-11-07T16:56:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1402,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_saque",
+          "precisao": 0.938,
+          "velocidade_pico": 159.0,
+          "aceleracao_max": 72.8,
+          "timestamp_execucao": "2026-11-07T16:56:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2203,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_saque",
+          "precisao": 0.861,
+          "velocidade_pico": 133.1,
+          "aceleracao_max": 86.2,
+          "timestamp_execucao": "2026-11-07T16:56:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2378,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.877,
+          "velocidade_pico": 129.8,
+          "aceleracao_max": 48.8,
+          "timestamp_execucao": "2026-11-07T16:56:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2580,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.914,
+          "velocidade_pico": 131.8,
+          "aceleracao_max": 55.5,
+          "timestamp_execucao": "2026-11-07T16:57:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2236,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.933,
+          "velocidade_pico": 118.1,
+          "aceleracao_max": 72.4,
+          "timestamp_execucao": "2026-11-07T16:57:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2692,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.946,
+          "velocidade_pico": 133.2,
+          "aceleracao_max": 40.7,
+          "timestamp_execucao": "2026-11-07T16:57:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2096,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_saque",
+          "precisao": 0.852,
+          "velocidade_pico": 151.5,
+          "aceleracao_max": 74.0,
+          "timestamp_execucao": "2026-11-07T16:57:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 1637,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_backhand",
+          "precisao": 0.87,
+          "velocidade_pico": 103.6,
+          "aceleracao_max": 60.1,
+          "timestamp_execucao": "2026-11-07T16:57:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2757,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_saque",
+          "precisao": 0.851,
+          "velocidade_pico": 152.6,
+          "aceleracao_max": 69.0,
+          "timestamp_execucao": "2026-11-07T16:58:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2355,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.873,
+          "velocidade_pico": 127.1,
+          "aceleracao_max": 55.5,
+          "timestamp_execucao": "2026-11-07T16:58:12.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2588,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.951,
+          "velocidade_pico": 110.3,
+          "aceleracao_max": 36.4,
+          "timestamp_execucao": "2026-11-07T16:58:24.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2009,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.873,
+          "velocidade_pico": 120.9,
+          "aceleracao_max": 55.1,
+          "timestamp_execucao": "2026-11-07T16:58:36.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2689,
+            "ponto_contato_sweetspot": false
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.895,
+          "velocidade_pico": 114.7,
+          "aceleracao_max": 42.3,
+          "timestamp_execucao": "2026-11-07T16:58:48.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2742,
+            "ponto_contato_sweetspot": true
+          }
+        },
+        {
+          "tipo_movimento": "tenis_forehand",
+          "precisao": 0.926,
+          "velocidade_pico": 125.7,
+          "aceleracao_max": 51.1,
+          "timestamp_execucao": "2026-11-07T16:59:00.920102+00:00",
+          "metadados_extras": {
+            "spin_rpm": 2487,
+            "ponto_contato_sweetspot": true
+          }
+        }
+      ]
+    }
+  }
+}

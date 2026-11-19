@@ -1,0 +1,19 @@
+{
+  "acuracia": 99.0,
+  "f1_score": 0.97,
+  "matriz_confusao": {
+    "tenis_backhand": {
+      "tenis_backhand": 102,
+      "tenis_forehand": 2
+    },
+    "tenis_forehand": {
+      "tenis_backhand": 0,
+      "tenis_forehand": 102
+    }
+  },
+  "total_amostras_dataset": 206,
+  "total_amostras_avaliadas": 206,
+  "tempo_treinamento_ms": 142,
+  "latencia_media_inferencia_ms": 1.4,
+  "avaliado_em": "2026-11-18T16:16:45.243707"
+}

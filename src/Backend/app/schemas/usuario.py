@@ -9,7 +9,7 @@ class UsuarioCreate(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     email: EmailStr
     senha: str = Field(..., min_length=6)
-    tipo_perfil: Literal["atleta", "personal"] = "atleta"
+    tipo_perfil: Literal["atleta", "personal", "desenvolvedor"] = "atleta"
     foto_perfil_url: Optional[str] = None
     bio: Optional[str] = None
     privado: bool = False
@@ -18,7 +18,7 @@ class UsuarioCreate(BaseModel):
 class UsuarioUpdate(BaseModel):
     nome: Optional[str] = Field(default=None, min_length=2, max_length=120)
     username: Optional[str] = Field(default=None, min_length=3, max_length=50)
-    tipo_perfil: Optional[Literal["atleta", "personal"]] = None
+    tipo_perfil: Optional[Literal["atleta", "personal", "desenvolvedor"]] = None
     foto_perfil_url: Optional[str] = None
     bio: Optional[str] = None
     privado: Optional[bool] = None

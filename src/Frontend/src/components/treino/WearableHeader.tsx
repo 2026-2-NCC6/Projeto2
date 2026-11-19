@@ -6,17 +6,21 @@ import { styles } from '@/components/treino/WearableHeader.styles';
 interface WearableHeaderProps {
   estaConectado: boolean;
   estaConectando: boolean;
+  tag?: string;
+  titulo?: string;
 }
 
 export function WearableHeader({
   estaConectado,
   estaConectando,
+  tag = 'CONTROLE DE SESSÕES • SMART TENNIS',
+  titulo = 'Treinos e Circuitos',
 }: WearableHeaderProps) {
   return (
     <View style={styles.topBar}>
       <View>
-        <Text style={styles.tag}>CONTROLE DE SESSÕES • SMART TENNIS</Text>
-        <Text style={styles.screenTitle}>Treinos e Circuitos</Text>
+        <Text style={styles.tag}>{tag}</Text>
+        <Text style={styles.screenTitle}>{titulo}</Text>
       </View>
 
       <View

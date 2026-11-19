@@ -8,17 +8,21 @@ import { StartWorkoutDock } from '@/components/treino/StartWorkoutDock';
 import { WearableHeader } from '@/components/treino/WearableHeader';
 import { WearableStatusCard } from '@/components/treino/WearableStatusCard';
 import { ToastPopup, type ToastData } from '@/components/ui/ToastPopup';
-import { useWearable, type SavedWearableDevice } from '@/hooks';
+import { useUsuarioLogado, useWearable, type SavedWearableDevice } from '@/hooks';
 import { styles } from '@/styles/treinar.styles';
 
 export default function TreinarScreen() {
   const router = useRouter();
+  const { data: usuario } = useUsuarioLogado();
+  const isDev = usuario?.tipo_perfil === 'desenvolvedor';
+
   const {
     estaConectado,
     estaConectando,
     idConectando,
     dispositivo,
     dispositivosSalvos,
+    telemetriaAoVivo,
     conectarDispositivo,
     desconectarDispositivo,
   } = useWearable();
@@ -65,11 +69,14 @@ export default function TreinarScreen() {
           <WearableHeader
             estaConectado={estaConectado}
             estaConectando={estaConectando}
+            tag={isDev ? 'HARDWARE BLE • ARDUINO UNO R4' : undefined}
+            titulo={isDev ? 'Sensor MPU6050 & Telemetria' : undefined}
           />
 
           <WearableStatusCard
             estaConectado={estaConectado}
             dispositivo={dispositivo}
+            telemetria={telemetriaAoVivo}
             onDesconectar={handleDesconectar}
             onAcessarInfoDispositivo={handleAcessarInfoDispositivo}
           />
@@ -86,7 +93,10 @@ export default function TreinarScreen() {
 
         <StartWorkoutDock
           estaConectado={estaConectado}
-          onIniciarTreino={handleIniciarTreino}
+          onIniciarTreino={
+            isDev ? () => router.push('/laboratorio-ia') : handleIniciarTreino
+          }
+          label={isDev ? '🧪 Ir para o Lab IA (Capturar Golpes)' : undefined}
         />
       </SafeAreaView>
     </View>

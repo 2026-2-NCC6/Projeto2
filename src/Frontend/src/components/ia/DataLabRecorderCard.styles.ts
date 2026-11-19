@@ -1,0 +1,192 @@
+import { StyleSheet } from 'react-native';
+
+import { FluxColors, Radius } from '@/constants/theme';
+
+export const styles = StyleSheet.create({
+  card: {
+    gap: 14,
+    position: 'relative',
+    zIndex: 100,
+    elevation: 100,
+    overflow: 'visible',
+  },
+  sectionTitle: {
+    color: FluxColors.text,
+    fontSize: 16,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  selectStack: {
+    gap: 12,
+    zIndex: 50,
+    position: 'relative',
+    width: '100%',
+    overflow: 'visible',
+  },
+  selectItemWrapper: {
+    position: 'relative',
+    width: '100%',
+    overflow: 'visible',
+  },
+  selectItemElevated: {
+    zIndex: 9999,
+    elevation: 50,
+  },
+  selectItem1: {
+    zIndex: 60,
+    elevation: 60,
+  },
+  selectItem2: {
+    zIndex: 50,
+    elevation: 50,
+  },
+  selectItem3: {
+    zIndex: 40,
+    elevation: 40,
+  },
+  selectItem4: {
+    zIndex: 30,
+    elevation: 30,
+  },
+  selectItem5: {
+    zIndex: 20,
+    elevation: 20,
+  },
+  selectItem6: {
+    zIndex: 10,
+    elevation: 10,
+  },
+  buttonContainer: {
+    position: 'relative',
+    zIndex: 1,
+    elevation: 1,
+  },
+  countdownBox: {
+    paddingVertical: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: 'rgba(123, 104, 238, 0.1)',
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: 'rgba(123, 104, 238, 0.35)',
+    position: 'relative',
+    zIndex: 1,
+  },
+  countdownNumber: {
+    color: FluxColors.primaryLight,
+    fontSize: 48,
+    fontWeight: '900',
+    fontVariant: ['tabular-nums'],
+  },
+  countdownHint: {
+    color: FluxColors.textSecondary,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  recordingBox: {
+    paddingVertical: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: 'rgba(239, 68, 68, 0.12)',
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: 'rgba(239, 68, 68, 0.45)',
+    position: 'relative',
+    zIndex: 1,
+  },
+  recordingHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  recordingDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: '#EF4444',
+  },
+  recordingText: {
+    color: '#F87171',
+    fontSize: 16,
+    fontWeight: '900',
+    letterSpacing: 0.8,
+  },
+  recordingCount: {
+    color: FluxColors.text,
+    fontSize: 28,
+    fontWeight: '900',
+    fontVariant: ['tabular-nums'],
+  },
+  recordingSubtext: {
+    color: FluxColors.textSecondary,
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  reviewBox: {
+    backgroundColor: 'rgba(12, 14, 24, 0.75)',
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: FluxColors.glassBorderActive,
+    padding: 12,
+    gap: 10,
+    position: 'relative',
+    zIndex: 1,
+  },
+  reviewTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  reviewTitle: {
+    color: FluxColors.success,
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  reviewMetricsGrid: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  reviewMetricItem: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderRadius: Radius.sm,
+    padding: 8,
+    gap: 2,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.05)',
+  },
+  reviewMetricLabel: {
+    color: FluxColors.textSecondary,
+    fontSize: 9,
+    fontWeight: '700',
+  },
+  reviewMetricValue: {
+    color: FluxColors.text,
+    fontSize: 14,
+    fontWeight: '900',
+    fontVariant: ['tabular-nums'],
+  },
+  actionsRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 4,
+    position: 'relative',
+    zIndex: 1,
+  },
+  actionBtn: {
+    flex: 1,
+  },
+  noteInput: {
+    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    borderRadius: Radius.sm,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    color: FluxColors.text,
+    fontSize: 12,
+  },
+});

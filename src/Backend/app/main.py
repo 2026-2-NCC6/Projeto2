@@ -24,6 +24,11 @@ async def lifespan(app: FastAPI):
     from user_seed import seed_usuarios
 
     seed_usuarios()
+
+    # Inicializa o banco paralelo do DataLab (datalab_ia.db) e seus seeds padrão
+    from app.repositories.datalab_repository import DataLabRepository
+
+    DataLabRepository.inicializar_banco_e_seeds()
     yield
 
 
